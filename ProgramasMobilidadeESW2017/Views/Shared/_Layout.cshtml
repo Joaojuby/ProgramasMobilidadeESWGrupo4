@@ -26,13 +26,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ProgramasMobilidadeESW2017</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Inicio</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <ul class="nav navbar-nav navbar-right">
+                    @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Apoio Social</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Instituições</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Candidatura</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -40,11 +43,13 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2017 - ProgramasMobilidadeESW2017</p>
-        </footer>
     </div>
+    <footer class="footer">
+        <div class="container">
+            <hr />
+            <p>&copy; 2017 - Programas Mobilidade</p>
+        </div>
+    </footer>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

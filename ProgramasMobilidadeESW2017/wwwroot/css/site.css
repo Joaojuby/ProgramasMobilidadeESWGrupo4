@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url('../images/imagem_fundo.jpg');
+    background-size: cover;
 }
 
 /* Wrapping element */
@@ -8,6 +10,13 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+/* Page Footer */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 /* Carousel */
