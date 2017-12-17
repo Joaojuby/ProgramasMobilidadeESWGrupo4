@@ -17,7 +17,7 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -31,23 +31,38 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
+        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Apoio Social</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Instituições</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Candidatura</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Pesquisar</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>
     <div class="container body-content">
-        @RenderBody()
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-stacked" >
+                    <li><a href="#">Programas De Mobilidade</a></li>
+                    <li><a href="#">Equipa</a></li>
+                    <li><a href="#">Legislação</a></li>
+                    <li><a href="#">Regulamento</a></li>
+                    <li><a href="#">Contactos</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 body-content">
+                @RenderBody()
+            </div>
+        </div>
+        @*@RenderBody()*@
     </div>
     <footer class="footer">
         <div class="container">
             <hr />
-            <p>&copy; 2017 - Programas Mobilidade</p>
+            <p class="text-muted text-center">&copy; 2017 - Programas Mobilidade</p>
         </div>
     </footer>
 
