@@ -11,9 +11,10 @@ using System;
 namespace ProgramasMobilidadeESW2017.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180107183115_ProgramasMobilidade2")]
+    partial class ProgramasMobilidade2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -187,46 +188,6 @@ namespace ProgramasMobilidadeESW2017.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("ProgramasMobilidadeESW2017.Models.Instituicao", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("Morada");
-
-                    b.Property<string>("Nome");
-
-                    b.Property<int>("PaisID");
-
-                    b.Property<long>("PhoneNumber");
-
-                    b.Property<string>("Website");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PaisID");
-
-                    b.ToTable("Instituicoes");
-                });
-
-            modelBuilder.Entity("ProgramasMobilidadeESW2017.Models.Pais", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CodigoISO");
-
-                    b.Property<int>("CodigoPais");
-
-                    b.Property<string>("Nome");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Paises");
-                });
-
             modelBuilder.Entity("ProgramasMobilidadeESW2017.Models.ProgramaMobilidade", b =>
                 {
                     b.Property<int>("ID")
@@ -242,6 +203,8 @@ namespace ProgramasMobilidadeESW2017.Data.Migrations
 
                     b.Property<string>("Nome");
 
+                    b.Property<string>("Pais");
+
                     b.Property<int>("TipoProgramaMobilidadeID");
 
                     b.HasKey("ID");
@@ -251,27 +214,10 @@ namespace ProgramasMobilidadeESW2017.Data.Migrations
                     b.ToTable("ProgramasMobilidade");
                 });
 
-            modelBuilder.Entity("ProgramasMobilidadeESW2017.Models.ProgramaMobilidadePais", b =>
-                {
-                    b.Property<int>("PaisID");
-
-                    b.Property<int>("ProgramaMobilidadeID");
-
-                    b.HasKey("PaisID", "ProgramaMobilidadeID");
-
-                    b.HasIndex("ProgramaMobilidadeID");
-
-                    b.ToTable("ProgramasMobilidadePais");
-                });
-
             modelBuilder.Entity("ProgramasMobilidadeESW2017.Models.TipoProgramaMobilidade", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Descricao");
-
-                    b.Property<string>("Designacao");
 
                     b.HasKey("ID");
 
@@ -323,32 +269,11 @@ namespace ProgramasMobilidadeESW2017.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ProgramasMobilidadeESW2017.Models.Instituicao", b =>
-                {
-                    b.HasOne("ProgramasMobilidadeESW2017.Models.Pais", "Pais")
-                        .WithMany("Instituicoes")
-                        .HasForeignKey("PaisID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("ProgramasMobilidadeESW2017.Models.ProgramaMobilidade", b =>
                 {
                     b.HasOne("ProgramasMobilidadeESW2017.Models.TipoProgramaMobilidade", "TipoProgramaMobilidade")
                         .WithMany()
                         .HasForeignKey("TipoProgramaMobilidadeID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ProgramasMobilidadeESW2017.Models.ProgramaMobilidadePais", b =>
-                {
-                    b.HasOne("ProgramasMobilidadeESW2017.Models.Pais", "Pais")
-                        .WithMany("ListaProgramas")
-                        .HasForeignKey("PaisID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ProgramasMobilidadeESW2017.Models.ProgramaMobilidade", "ProgramaMobilidade")
-                        .WithMany("ListaPaises")
-                        .HasForeignKey("ProgramaMobilidadeID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
