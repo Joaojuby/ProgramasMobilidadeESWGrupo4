@@ -14,6 +14,25 @@ namespace ProgramasMobilidadeESW2017.Models.AccountViewModels
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Primeiro Nome")]
+        public string PrimeiroNome { get; set; }
+
+        [Required]
+        [Display(Name = "Ultimo Nome")]
+        public string UltimoNome { get; set; }
+
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Data de Nascimento")]
+        public DateTime DataNascimento { get; set; }
+
+        [Required]
+        [Display(Name = "Nacionalidade")]
+        public string Nacionalidade { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
