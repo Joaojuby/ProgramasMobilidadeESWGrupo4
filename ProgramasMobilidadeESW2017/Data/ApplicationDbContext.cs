@@ -15,6 +15,9 @@ namespace ProgramasMobilidadeESW2017.Data
         {
         }
 
+        public DbSet<TipoProgramaMobilidade> TiposProgramaMobilidade { get; set; }
+        public DbSet<ProgramaMobilidade> ProgramasMobilidade { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

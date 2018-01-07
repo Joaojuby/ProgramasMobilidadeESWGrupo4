@@ -11,9 +11,10 @@ using System;
 namespace ProgramasMobilidadeESW2017.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180107182252_ProgramasMobilidade")]
+    partial class ProgramasMobilidade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -187,46 +188,6 @@ namespace ProgramasMobilidadeESW2017.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("ProgramasMobilidadeESW2017.Models.ProgramaMobilidade", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DataInicioInscricao");
-
-                    b.Property<DateTime>("DataLimiteInscricao");
-
-                    b.Property<string>("Descricao");
-
-                    b.Property<int>("Duracao");
-
-                    b.Property<string>("Nome");
-
-                    b.Property<string>("Pais");
-
-                    b.Property<int>("TipoProgramaMobilidadeID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("TipoProgramaMobilidadeID");
-
-                    b.ToTable("ProgramasMobilidade");
-                });
-
-            modelBuilder.Entity("ProgramasMobilidadeESW2017.Models.TipoProgramaMobilidade", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Descricao");
-
-                    b.Property<string>("Designacao");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("TiposProgramaMobilidade");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -269,14 +230,6 @@ namespace ProgramasMobilidadeESW2017.Data.Migrations
                     b.HasOne("ProgramasMobilidadeESW2017.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ProgramasMobilidadeESW2017.Models.ProgramaMobilidade", b =>
-                {
-                    b.HasOne("ProgramasMobilidadeESW2017.Models.TipoProgramaMobilidade", "TipoProgramaMobilidade")
-                        .WithMany()
-                        .HasForeignKey("TipoProgramaMobilidadeID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
