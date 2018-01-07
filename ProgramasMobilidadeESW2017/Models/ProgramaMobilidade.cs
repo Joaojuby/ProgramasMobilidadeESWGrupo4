@@ -17,14 +17,14 @@ namespace ProgramasMobilidadeESW2017.Models
 
         // Duracao em horas
         public int Duracao { get; set; }
-
+        
         public DateTime DataInicioInscricao { get; set; }
 
         public DateTime DataLimiteInscricao { get; set; }
-
-        public string Pais { get; set; }
-
+        
         public TipoProgramaMobilidade TipoProgramaMobilidade { get; set; }
+
+        public ICollection<ProgramaMobilidadePais> ListaPaises { get; set; }
         
     }
 }
