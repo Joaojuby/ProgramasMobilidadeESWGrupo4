@@ -23,10 +23,17 @@
                 <input asp-for="Descricao" class="form-control" />
                 <span asp-validation-for="Descricao" class="text-danger"></span>
             </div>
+            @*<div class="form-group">
+            <label asp-for="TipoProgramaMobilidadeID" class="control-label"></label>
+            <select asp-for="TipoProgramaMobilidadeID" class="form-control" asp-items="ViewBag.TipoProgramaMobilidadeID"></select>
+            <span asp-validation-for="TipoProgramaMobilidadeID" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
-                <label asp-for="TipoProgramaMobilidadeID" class="control-label"></label>
-                <select asp-for="TipoProgramaMobilidadeID" class="form-control" asp-items="ViewBag.TipoProgramaMobilidadeID"></select>
-                <span asp-validation-for="TipoProgramaMobilidadeID" class="text-danger"></span>
+                <label asp-for="TipoProgramaMobilidade" class="control-label"></label>
+                <select asp-for="TipoProgramaMobilidadeID" class="form-control" asp-items="ViewBag.TipoProgramaID">
+                    <option value="">-- Selecione o Tipo de Programa --</option>
+                </select>
+                <span asp-validation-for="TipoProgramaMobilidadeID" class="text-danger" />
             </div>
             <div class="form-group">
                 <label asp-for="Duracao" class="control-label"></label>

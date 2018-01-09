@@ -36,6 +36,7 @@ namespace ProgramasMobilidadeESW2017
 
             var programaMobilidade = await _context.ProgramasMobilidade
                 .Include(p => p.TipoProgramaMobilidade)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (programaMobilidade == null)
             {
@@ -48,7 +49,8 @@ namespace ProgramasMobilidadeESW2017
         // GET: ProgramaMobilidades/Create
         public IActionResult Create()
         {
-            ViewData["TipoProgramaMobilidadeID"] = new SelectList(_context.TiposProgramaMobilidade, "ID", "ID");
+            //ViewData["TipoProgramaMobilidadeID"] = new SelectList(_context.TiposProgramaMobilidade, "ID", "ID");
+            PopulateTipoProgramaDropDownList();
             return View();
         }
 
@@ -65,7 +67,8 @@ namespace ProgramasMobilidadeESW2017
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TipoProgramaMobilidadeID"] = new SelectList(_context.TiposProgramaMobilidade, "ID", "ID", programaMobilidade.TipoProgramaMobilidadeID);
+            //ViewData["TipoProgramaMobilidadeID"] = new SelectList(_context.TiposProgramaMobilidade, "ID", "ID", programaMobilidade.TipoProgramaMobilidadeID);
+            PopulateTipoProgramaDropDownList(programaMobilidade.TipoProgramaMobilidadeID);
             return View(programaMobilidade);
         }
 
@@ -77,12 +80,13 @@ namespace ProgramasMobilidadeESW2017
                 return NotFound();
             }
 
-            var programaMobilidade = await _context.ProgramasMobilidade.SingleOrDefaultAsync(m => m.ID == id);
+            var programaMobilidade = await _context.ProgramasMobilidade.AsNoTracking().SingleOrDefaultAsync(m => m.ID == id);
             if (programaMobilidade == null)
             {
                 return NotFound();
             }
-            ViewData["TipoProgramaMobilidadeID"] = new SelectList(_context.TiposProgramaMobilidade, "ID", "ID", programaMobilidade.TipoProgramaMobilidadeID);
+            //ViewData["TipoProgramaMobilidadeID"] = new SelectList(_context.TiposProgramaMobilidade, "ID", "ID", programaMobilidade.TipoProgramaMobilidadeID);
+            PopulateTipoProgramaDropDownList(programaMobilidade.TipoProgramaMobilidadeID);
             return View(programaMobilidade);
         }
 
@@ -118,7 +122,8 @@ namespace ProgramasMobilidadeESW2017
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TipoProgramaMobilidadeID"] = new SelectList(_context.TiposProgramaMobilidade, "ID", "ID", programaMobilidade.TipoProgramaMobilidadeID);
+            //ViewData["TipoProgramaMobilidadeID"] = new SelectList(_context.TiposProgramaMobilidade, "ID", "ID", programaMobilidade.TipoProgramaMobilidadeID);
+            PopulateTipoProgramaDropDownList(programaMobilidade.TipoProgramaMobilidadeID);
             return View(programaMobilidade);
         }
 
@@ -132,6 +137,7 @@ namespace ProgramasMobilidadeESW2017
 
             var programaMobilidade = await _context.ProgramasMobilidade
                 .Include(p => p.TipoProgramaMobilidade)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (programaMobilidade == null)
             {
@@ -155,6 +161,14 @@ namespace ProgramasMobilidadeESW2017
         private bool ProgramaMobilidadeExists(int id)
         {
             return _context.ProgramasMobilidade.Any(e => e.ID == id);
+        }
+
+        private void PopulateTipoProgramaDropDownList(object selectedTipoPrograma = null)
+        {
+            var tipoProgramaMobilidade = from t in _context.TiposProgramaMobilidade
+                                         orderby t.Designacao
+                                         select t;
+            ViewBag.TipoProgramaID = new SelectList(tipoProgramaMobilidade.AsNoTracking(), "ID", "Designacao", selectedTipoPrograma);
         }
     }
 }
