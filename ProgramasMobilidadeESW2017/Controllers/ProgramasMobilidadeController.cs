@@ -10,11 +10,11 @@ using ProgramasMobilidadeESW2017.Models;
 
 namespace ProgramasMobilidadeESW2017
 {
-    public class ProgramaMobilidadesController : Controller
+    public class ProgramasMobilidadeController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ProgramaMobilidadesController(ApplicationDbContext context)
+        public ProgramasMobilidadeController(ApplicationDbContext context)
         {
             _context = context;
         }

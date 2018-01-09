@@ -34,7 +34,7 @@
         <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Apoio Social</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Instituições</a></li>
+                    <li><a asp-area="" asp-controller="Instituicoes" asp-action="Index">Instituições</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Candidatura</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Pesquisar</a></li>
                 </ul>
@@ -46,7 +46,7 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-stacked" >
-                    <li><a href="#">Programas De Mobilidade</a></li>
+                    <li><a asp-area="" asp-controller="ProgramasMobilidade" asp-action="Index">Programas de Mobilidade</a></li>
                     <li><a href="#">Equipa</a></li>
                     <li><a href="#">Legislação</a></li>
                     <li><a href="#">Regulamento</a></li>
@@ -59,12 +59,12 @@
         </div>
         @*@RenderBody()*@
     </div>
-    <footer class="footer">
+    @*<footer class="footer">
         <div class="container">
             <hr />
             <p class="text-muted text-center">&copy; 2017 - Programas Mobilidade</p>
         </div>
-    </footer>
+    </footer>*@
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
