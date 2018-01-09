@@ -37,9 +37,16 @@
                 <input asp-for="Website" class="form-control" />
                 <span asp-validation-for="Website" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="PaisID" class="control-label"></label>
                 <select asp-for="PaisID" class ="form-control" asp-items="ViewBag.PaisID"></select>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="Pais" class="control-label"></label>    
+                <select asp-for="PaisID" class="form-control" asp-items="ViewBag.PaisID">
+                    <option value="">-- Selecione o País --</option>
+                </select>
+                <span asp-validation-for="PaisID" class="text-danger" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

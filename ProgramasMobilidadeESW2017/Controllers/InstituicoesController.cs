@@ -36,6 +36,7 @@ namespace ProgramasMobilidadeESW2017
 
             var instituicao = await _context.Instituicoes
                 .Include(i => i.Pais)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (instituicao == null)
             {
@@ -48,7 +49,8 @@ namespace ProgramasMobilidadeESW2017
         // GET: Instituicoes/Create
         public IActionResult Create()
         {
-            ViewData["PaisID"] = new SelectList(_context.Paises, "ID", "ID");
+            //ViewData["PaisID"] = new SelectList(_context.Paises, "ID", "ID");
+            PopulateInstituicoesDropDownList();
             return View();
         }
 
@@ -65,7 +67,8 @@ namespace ProgramasMobilidadeESW2017
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PaisID"] = new SelectList(_context.Paises, "ID", "ID", instituicao.PaisID);
+            //ViewData["PaisID"] = new SelectList(_context.Paises, "ID", "ID", instituicao.PaisID);
+            PopulateInstituicoesDropDownList(instituicao.PaisID);
             return View(instituicao);
         }
 
@@ -77,12 +80,13 @@ namespace ProgramasMobilidadeESW2017
                 return NotFound();
             }
 
-            var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.ID == id);
+            var instituicao = await _context.Instituicoes.AsNoTracking().SingleOrDefaultAsync(m => m.ID == id);
             if (instituicao == null)
             {
                 return NotFound();
             }
-            ViewData["PaisID"] = new SelectList(_context.Paises, "ID", "ID", instituicao.PaisID);
+            //ViewData["PaisID"] = new SelectList(_context.Paises, "ID", "ID", instituicao.PaisID);
+            PopulateInstituicoesDropDownList(instituicao.PaisID);
             return View(instituicao);
         }
 
@@ -118,7 +122,8 @@ namespace ProgramasMobilidadeESW2017
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PaisID"] = new SelectList(_context.Paises, "ID", "ID", instituicao.PaisID);
+            //ViewData["PaisID"] = new SelectList(_context.Paises, "ID", "ID", instituicao.PaisID);
+            PopulateInstituicoesDropDownList(instituicao.PaisID);
             return View(instituicao);
         }
 
@@ -132,6 +137,7 @@ namespace ProgramasMobilidadeESW2017
 
             var instituicao = await _context.Instituicoes
                 .Include(i => i.Pais)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (instituicao == null)
             {
@@ -156,5 +162,14 @@ namespace ProgramasMobilidadeESW2017
         {
             return _context.Instituicoes.Any(e => e.ID == id);
         }
+
+        private void PopulateInstituicoesDropDownList(object selectedPais = null)
+        {
+            var paisQuery = from p in _context.Paises
+                            orderby p.Nome
+                            select p;
+            ViewBag.PaisID = new SelectList(paisQuery.AsNoTracking(), "ID", "Nome", selectedPais);
+        }
+
     }
 }
