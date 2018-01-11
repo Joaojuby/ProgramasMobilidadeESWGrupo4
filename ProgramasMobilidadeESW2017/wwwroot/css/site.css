@@ -1,6 +1,11 @@
-﻿/* Remove the navbar's default margin-bottom and rounded borders */
+﻿body {
+    min-height: 2000px;
+    padding-top: 70px;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
-    margin-bottom: 0;
+    margin-bottom: 20;
     border-radius: 0;
 }
 
