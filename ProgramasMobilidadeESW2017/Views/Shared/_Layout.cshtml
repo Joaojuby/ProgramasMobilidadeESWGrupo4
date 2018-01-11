@@ -17,8 +17,8 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -29,7 +29,8 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Inicio</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav">
+                    @await Html.PartialAsync("_LoginPartial")
                     @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
         <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
@@ -38,7 +39,6 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Candidatura</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Pesquisar</a></li>
                 </ul>
-                @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>

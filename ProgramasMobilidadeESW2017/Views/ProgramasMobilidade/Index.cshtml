@@ -4,29 +4,43 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Programas de Mobilidade</h2>
+
+<article>
+    <p>
+        Abaixo está uma lista dos programas de mobilidade atualmente ativos aos quais alunos e funcionários docentes e não-docentes.
+    </p>
+</article>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<div class="list-group" >
+    @foreach (var item in Model)
+    {
+        <a class="list-group-item" asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.Nome)</a>
+    }
+</div>
+
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nome)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Descricao)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Duracao)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DataInicioInscricao)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DataLimiteInscricao)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duracao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataInicioInscricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataLimiteInscricao)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.TipoProgramaMobilidade)
             </th>
@@ -34,32 +48,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duracao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInicioInscricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataLimiteInscricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoProgramaMobilidade.Designacao)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duracao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataInicioInscricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataLimiteInscricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoProgramaMobilidade.Designacao)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
