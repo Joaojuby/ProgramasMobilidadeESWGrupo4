@@ -26,25 +26,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Inicio</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><span class="glyphicon glyphicon-home"></span></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @await Html.PartialAsync("_LoginPartial")
                     @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
+            <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Apoio Social</a></li>
                     <li><a asp-area="" asp-controller="Instituicoes" asp-action="Index">Instituições</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Candidatura</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Pesquisar</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index"><span class="glyphicon glyphicon-search"></span> Pesquisar</a></li>
                 </ul>
+                @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>
-    <div class="container body-content">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
+
+    <div class="container-fluid text-left">
+        <div class="row content">
+            <div class="col-sm-3 sidebar">
                 <ul class="nav nav-stacked" >
                     <li><a asp-area="" asp-controller="ProgramasMobilidade" asp-action="Index">Programas de Mobilidade</a></li>
                     <li><a href="#">Equipa</a></li>

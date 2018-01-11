@@ -1,87 +1,36 @@
-﻿@import url('https://fonts.googleapis.com/css?family=Roboto');
+﻿/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
 
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    /* background-image: url('../images/imagem_fundo.jpg');
-    background-size: cover; */
-    background-color: #343F4B;
-    font-family: 'Roboto', sans-serif;
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+    height: 450px
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+    background-color: #555;
     color: white;
+    padding: 15px;
 }
 
-.sidebar{
-    display: none;
-}
-
-.sidebar > ul > li > a {
-    color: white;
-}
-
-.sidebar > ul > li :hover {
-    background-color: transparent;
-    text-decoration: underline;
-}
-
-.sidebar > ul > li :focus {
-    background-color: transparent;
-    text-decoration: underline;
-}
-
-.background-brand {
-    background-image: url('../images/imagem_fundo.jpg');
-    background-size: cover; 
-}
-
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Page Footer */
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
+/* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
+    .sidenav {
+        height: auto;
+        padding: 15px;
     }
-}
 
-/* Media queries for sidebar */
-@media screen and (min-width: 767px) {
-    /* show sidebar */
-    .sidebar {
-        position: fixed;
-        top: 51px;
-        bottom: 0;
-        left: 0;
-        display: block;
-        padding: 20px;
-        overflow-x: hidden;
-        overflow-y: auto;
+    .row.content {
+        height: auto;
     }
 }

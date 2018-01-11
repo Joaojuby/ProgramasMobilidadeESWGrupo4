@@ -20,8 +20,8 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        @*<li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>*@
+        <li><a asp-area="" asp-controller="Account" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span> Validar</a></li>
         @*<li><input type="button" value="Sign In" asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-sm btn-block btn-primary navbar-btn"></li>*@
-        <li><input type="button" value="Sign In" onclick="location.href='@Url.Action("Login", "Account")'" class="btn btn-sm btn-block btn-primary navbar-btn"></li>
+        @*<li><input type="button" value="Sign In" onclick="location.href='@Url.Action("Login", "Account")'"></li>*@
     </ul>
 }
