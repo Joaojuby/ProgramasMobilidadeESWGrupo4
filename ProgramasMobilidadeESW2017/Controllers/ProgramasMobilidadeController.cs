@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,7 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: ProgramaMobilidades/Create
+        [Authorize]
         public IActionResult Create()
         {
             //ViewData["TipoProgramaMobilidadeID"] = new SelectList(_context.TiposProgramaMobilidade, "ID", "ID");
@@ -59,6 +61,7 @@ namespace ProgramasMobilidadeESW2017
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("ID,Nome,Descricao,TipoProgramaMobilidadeID,Duracao,DataInicioInscricao,DataLimiteInscricao")] ProgramaMobilidade programaMobilidade)
         {
             if (ModelState.IsValid)
@@ -73,6 +76,7 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: ProgramaMobilidades/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,6 +99,7 @@ namespace ProgramasMobilidadeESW2017
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Nome,Descricao,TipoProgramaMobilidadeID,Duracao,DataInicioInscricao,DataLimiteInscricao")] ProgramaMobilidade programaMobilidade)
         {
             if (id != programaMobilidade.ID)
@@ -128,6 +133,7 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: ProgramaMobilidades/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -150,6 +156,7 @@ namespace ProgramasMobilidadeESW2017
         // POST: ProgramaMobilidades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var programaMobilidade = await _context.ProgramasMobilidade.SingleOrDefaultAsync(m => m.ID == id);
