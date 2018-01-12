@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Testes
 {
-    public class InstituicoesControllerUnitTests
+    public class InstituicoesControllerIntegrationTests
     {
         [Fact]
         public async Task Index()
