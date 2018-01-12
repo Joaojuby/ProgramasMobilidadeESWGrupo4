@@ -48,7 +48,7 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: Instituicoes/Create
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Create()
         {
             //ViewData["PaisID"] = new SelectList(_context.Paises, "ID", "ID");
@@ -61,7 +61,7 @@ namespace ProgramasMobilidadeESW2017
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Create([Bind("ID,Nome,Morada,Email,PhoneNumber,Website,PaisID")] Instituicao instituicao)
         {
             if (ModelState.IsValid)
@@ -76,7 +76,7 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: Instituicoes/Edit/5
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,7 +99,7 @@ namespace ProgramasMobilidadeESW2017
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Nome,Morada,Email,PhoneNumber,Website,PaisID")] Instituicao instituicao)
         {
             if (id != instituicao.ID)
@@ -133,7 +133,7 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: Instituicoes/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -156,7 +156,7 @@ namespace ProgramasMobilidadeESW2017
         // POST: Instituicoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.ID == id);

@@ -61,7 +61,7 @@ namespace ProgramasMobilidadeESW2017
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Create([Bind("ID,Nome,Descricao,TipoProgramaMobilidadeID,Duracao,DataInicioInscricao,DataLimiteInscricao")] ProgramaMobilidade programaMobilidade)
         {
             if (ModelState.IsValid)
@@ -76,7 +76,7 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: ProgramaMobilidades/Edit/5
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,7 +99,7 @@ namespace ProgramasMobilidadeESW2017
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Nome,Descricao,TipoProgramaMobilidadeID,Duracao,DataInicioInscricao,DataLimiteInscricao")] ProgramaMobilidade programaMobilidade)
         {
             if (id != programaMobilidade.ID)
@@ -133,7 +133,7 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: ProgramaMobilidades/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -156,7 +156,7 @@ namespace ProgramasMobilidadeESW2017
         // POST: ProgramaMobilidades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var programaMobilidade = await _context.ProgramasMobilidade.SingleOrDefaultAsync(m => m.ID == id);
