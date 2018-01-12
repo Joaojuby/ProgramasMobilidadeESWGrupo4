@@ -48,7 +48,7 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: ProgramaMobilidades/Create
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Create()
         {
             //ViewData["TipoProgramaMobilidadeID"] = new SelectList(_context.TiposProgramaMobilidade, "ID", "ID");

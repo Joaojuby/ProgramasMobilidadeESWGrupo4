@@ -75,6 +75,7 @@ namespace ProgramasMobilidadeESW2017
             });
 
             RolesData.SeedRoles(app.ApplicationServices).Wait();
+            RolesData.SeedUsers(app.ApplicationServices).Wait();
         }
     }
 }
