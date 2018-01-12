@@ -244,6 +244,9 @@ namespace ProgramasMobilidadeESW2017.Controllers
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    // Atribuir à role Utilizador
+                    await _userManager.AddToRoleAsync(user, "Utilizador");
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
