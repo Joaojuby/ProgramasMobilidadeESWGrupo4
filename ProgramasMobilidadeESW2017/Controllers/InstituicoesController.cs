@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using ProgramasMobilidadeESW2017.Data;
 using ProgramasMobilidadeESW2017.Models;
 
@@ -21,10 +22,18 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: Instituicoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var applicationDbContext = _context.Instituicoes.Include(i => i.Pais);
-            return View(await applicationDbContext.ToListAsync());
+            var instituicoes = _context.Instituicoes.Include(i => i.Pais);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+
+                return View(instituicoes.Where(i => i.Nome.Contains(searchString) || i.Pais.Nome.Contains(searchString))
+                    .ToList());
+            }
+
+            return View(instituicoes.ToList());
         }
 
         // GET: Instituicoes/Details/5

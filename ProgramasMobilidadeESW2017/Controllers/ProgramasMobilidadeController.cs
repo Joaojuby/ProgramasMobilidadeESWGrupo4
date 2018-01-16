@@ -21,10 +21,17 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: ProgramaMobilidades
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var applicationDbContext = _context.ProgramasMobilidade.Include(p => p.TipoProgramaMobilidade);
-            return View(await applicationDbContext.ToListAsync());
+            var programasMobilidade = _context.ProgramasMobilidade.Include(p => p.TipoProgramaMobilidade);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+
+                return View(programasMobilidade.Where(i => i.Nome.Contains(searchString)).ToList());
+            }
+
+            return View(programasMobilidade.ToList());
         }
 
         // GET: ProgramaMobilidades/Details/5
