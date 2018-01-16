@@ -19,5 +19,14 @@ namespace ProgramasMobilidadeESW2017.Models
 
         // Nacionalidade Utilizador
         public string Nacionalidade { get; set; }
+
+        // Dados necessarios para candidatura
+        public string Genero { get; set; }
+
+        // TO DO Fotografia
+        // Escola
+        // Ano Curricular
+        // Curso
+        // Numero Aluno
     }
 }
