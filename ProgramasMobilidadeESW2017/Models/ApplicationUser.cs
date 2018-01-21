@@ -23,6 +23,8 @@ namespace ProgramasMobilidadeESW2017.Models
         // Dados necessarios para candidatura
         public string Genero { get; set; }
 
+        public ICollection<Candidatura> Candidaturas { get; set; }
+
         // TO DO Fotografia
         // Escola
         // Ano Curricular

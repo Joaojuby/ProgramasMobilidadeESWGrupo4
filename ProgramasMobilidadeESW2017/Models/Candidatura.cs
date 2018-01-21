@@ -11,6 +11,7 @@ namespace ProgramasMobilidadeESW2017.Models
     {
         public int ID { get; set; }
         public int ProgramaMobilidadeID { get; set; }
+        public int EstadoCandidaturaID { get; set; }
 
         [Required]
         [Display(Name= "Nome da Pessoa de Contacto")]
@@ -18,15 +19,21 @@ namespace ProgramasMobilidadeESW2017.Models
 
         [Required]
         [Display(Name ="Telefone da Pessoa de Contacto")]
-        public string TelefonePessoaContacto { get; set; }
+        public long TelefonePessoaContacto { get; set; }
 
         [Required]
         [Display(Name ="Relacao com o candidato")]
         public string RelacaoComCandidato { get; set; }
 
-        public int EstadoCandidaturaID { get; set; }
 
+        [Display(Name = "Estado")]
         public EstadoCandidatura EstadoCandidatura { get; set; }
+
+        [Required]
+        [Display(Name = "Programa de Mobilidade")]
+        public ProgramaMobilidade ProgramaMobilidade { get; set; }
+
+        public ApplicationUser User { get; set; }
 
         public ICollection<Entrevista> Entrevistas { get; set; }
         public ICollection<ObservacaoCandidatura> Observacoes { get; set; }
