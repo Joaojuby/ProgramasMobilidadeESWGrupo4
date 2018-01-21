@@ -91,6 +91,27 @@ namespace ProgramasMobilidadeESW2017.Data
                 context.SaveChanges();
             }
 
+
+
+            // Procura por estados candidatura
+            if (!context.EstadosCandidaturas.Any())
+            {
+                var estados = new EstadoCandidatura[]
+                {
+                    new EstadoCandidatura{Designacao="Em Análise"},
+                    new EstadoCandidatura{Designacao="Cancelada"},
+                    new EstadoCandidatura{Designacao="Aguardar Resultados"},
+                    new EstadoCandidatura{Designacao="Aprovada"},
+                    new EstadoCandidatura{Designacao="Não Aprovada"},
+                };
+
+                foreach(EstadoCandidatura e in estados)
+                {
+                    context.EstadosCandidaturas.Add(e);
+                }
+                context.SaveChanges();
+            }
+
         }
     }
 }
