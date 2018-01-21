@@ -7,6 +7,7 @@ namespace ProgramasMobilidadeESW2017.Models
 {
     public class Entrevista
     {
-
+        public int ID { get; set; }
+        public DateTime DataEntrevista { get; set; }
     }
 }

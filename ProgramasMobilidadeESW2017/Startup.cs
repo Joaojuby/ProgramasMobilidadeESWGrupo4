@@ -74,8 +74,8 @@ namespace ProgramasMobilidadeESW2017
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            RolesData.SeedRoles(app.ApplicationServices).Wait();
-            RolesData.SeedUsers(app.ApplicationServices).Wait();
+            // RolesData.SeedRoles(app.ApplicationServices).Wait();
+            // RolesData.SeedUsers(app.ApplicationServices).Wait();
         }
     }
 }

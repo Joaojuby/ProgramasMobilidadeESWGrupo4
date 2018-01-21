@@ -29,6 +29,6 @@ namespace ProgramasMobilidadeESW2017.Models
         public EstadoCandidatura EstadoCandidatura { get; set; }
 
         public ICollection<Entrevista> Entrevistas { get; set; }
-        public ICollection<Observacao> Observacoes { get; set; }
+        public ICollection<ObservacaoCandidatura> Observacoes { get; set; }
     }
 }

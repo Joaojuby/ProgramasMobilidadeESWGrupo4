@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace ProgramasMobilidadeESW2017.Models
 {
-    public class Observacao
+    public class ObservacaoCandidatura
     {
+        public int ID { get; set; }
+        public string Nota { get; set; }
     }
 }

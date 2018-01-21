@@ -7,7 +7,7 @@ namespace ProgramasMobilidadeESW2017.Models
 {
     public class EstadoCandidatura
     {
-        public int ID;
+        public int ID { get; set; }
 
         public string Designacao { get; set; }
     }

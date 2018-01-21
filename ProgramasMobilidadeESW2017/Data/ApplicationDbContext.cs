@@ -20,6 +20,10 @@ namespace ProgramasMobilidadeESW2017.Data
         public DbSet<Pais> Paises { get; set; }
         public DbSet<Instituicao> Instituicoes { get; set; }
         public DbSet<ProgramaMobilidadePais> ProgramasMobilidadePais { get; set; }
+        public DbSet<Candidatura> Candidaturas { get; set; }
+        public DbSet<Entrevista> Entrevistas { get; set; }
+        public DbSet<ObservacaoCandidatura> ObservacoesCandidaturas { get; set; }
+        public DbSet<EstadoCandidatura> EstadosCandidaturas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
