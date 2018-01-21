@@ -29,7 +29,6 @@ namespace ProgramasMobilidadeESW2017.Models
         [Display(Name = "Estado")]
         public EstadoCandidatura EstadoCandidatura { get; set; }
 
-        [Required]
         [Display(Name = "Programa de Mobilidade")]
         public ProgramaMobilidade ProgramaMobilidade { get; set; }
 

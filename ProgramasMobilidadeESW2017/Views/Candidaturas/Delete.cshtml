@@ -1,0 +1,51 @@
+﻿@model ProgramasMobilidadeESW2017.Models.Candidatura
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Candidatura</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomePessoaContacto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomePessoaContacto)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TelefonePessoaContacto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TelefonePessoaContacto)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RelacaoComCandidato)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RelacaoComCandidato)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoCandidatura)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EstadoCandidatura.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProgramaMobilidade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProgramaMobilidade.Descricao)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

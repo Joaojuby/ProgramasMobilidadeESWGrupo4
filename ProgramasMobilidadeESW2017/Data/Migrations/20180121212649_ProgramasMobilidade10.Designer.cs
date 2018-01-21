@@ -11,9 +11,10 @@ using System;
 namespace ProgramasMobilidadeESW2017.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180121212649_ProgramasMobilidade10")]
+    partial class ProgramasMobilidade10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

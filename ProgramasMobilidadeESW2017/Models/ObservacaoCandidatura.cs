@@ -9,5 +9,8 @@ namespace ProgramasMobilidadeESW2017.Models
     {
         public int ID { get; set; }
         public string Nota { get; set; }
+
+        public int CandidaturaID { get; set; }
+        public Candidatura Candidatura { get; set; }
     }
 }
