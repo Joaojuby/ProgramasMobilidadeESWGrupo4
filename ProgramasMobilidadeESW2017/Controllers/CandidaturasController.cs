@@ -167,12 +167,18 @@ namespace ProgramasMobilidadeESW2017.Controllers
         [HttpPost, ActionName("Cancel")]
         [Authorize(Roles = "Administrador, Utilizador")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CancelConfirmed(int id)
+        public async Task<IActionResult> CancelConfirmed(int id, [Bind ("Nota")] ObservacaoCandidatura observacao)
         {
             var candidatura = await _context.Candidaturas.SingleOrDefaultAsync(m => m.ID == id);
             var estadoCancelado = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Cancelada");
             candidatura.EstadoCandidaturaID = estadoCancelado.ID;
+
+            // Adiciona observacao
+            observacao.CandidaturaID = candidatura.ID;
+            _context.Add(observacao);
+
             _context.Candidaturas.Update(candidatura);
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

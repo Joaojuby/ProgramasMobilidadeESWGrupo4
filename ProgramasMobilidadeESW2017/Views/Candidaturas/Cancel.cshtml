@@ -45,6 +45,8 @@
     
     <form asp-action="Cancel">
         <input type="hidden" asp-for="ID" />
+        <span>Insert a reason below:</span>
+        @Html.TextArea("Nota", null, new { style = "color: black;" });
         <input type="submit" value="Cancel" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
     </form>
