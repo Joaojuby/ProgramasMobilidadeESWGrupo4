@@ -53,7 +53,8 @@ namespace ProgramasMobilidadeESW2017.Controllers
             if (id != null)
             {
                 PopulateProgramaMobilidadeDropDownList(id);
-            } else
+            }
+            else
             {
                 PopulateProgramaMobilidadeDropDownList();
             }
@@ -76,11 +77,11 @@ namespace ProgramasMobilidadeESW2017.Controllers
                 _context.Add(candidatura);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-        }
+            }
             ViewData["EstadoCandidaturaID"] = new SelectList(_context.EstadosCandidaturas, "ID", "ID", candidatura.EstadoCandidaturaID);
             ViewData["ProgramaMobilidadeID"] = new SelectList(_context.ProgramasMobilidade, "ID", "Descricao", candidatura.ProgramaMobilidadeID);
             return View(candidatura);
-    }
+        }
 
         // GET: Candidaturas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -138,7 +139,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
         }
 
         // GET: Candidaturas/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Cancel(int? id)
         {
             if (id == null)
             {
@@ -158,12 +159,14 @@ namespace ProgramasMobilidadeESW2017.Controllers
         }
 
         // POST: Candidaturas/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Cancel")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> CancelConfirmed(int id)
         {
             var candidatura = await _context.Candidaturas.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Candidaturas.Remove(candidatura);
+            var estadoCancelado = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Cancelada");
+            candidatura.EstadoCandidaturaID = estadoCancelado.ID;
+            _context.Candidaturas.Update(candidatura);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
