@@ -21,6 +21,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
         }
 
         // GET: Candidaturas
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Candidaturas.Include(c => c.EstadoCandidatura).Include(c => c.ProgramaMobilidade);
@@ -28,6 +29,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
         }
 
         // GET: Candidaturas/Details/5
+        [Authorize(Roles = "Utilizador, Administrador")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,6 +50,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
         }
 
         // GET: Candidaturas/Create
+        [Authorize(Roles = "Utilizador")]
         public IActionResult Create(int? id)
         {
             if (id != null)
@@ -106,6 +109,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,ProgramaMobilidadeID,EstadoCandidaturaID,NomePessoaContacto,TelefonePessoaContacto,RelacaoComCandidato")] Candidatura candidatura)
         {
             if (id != candidatura.ID)
@@ -139,6 +143,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
         }
 
         // GET: Candidaturas/Delete/5
+        [Authorize(Roles = "Administrador, Utilizador")]
         public async Task<IActionResult> Cancel(int? id)
         {
             if (id == null)
@@ -160,6 +165,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
 
         // POST: Candidaturas/Delete/5
         [HttpPost, ActionName("Cancel")]
+        [Authorize(Roles = "Administrador, Utilizador")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CancelConfirmed(int id)
         {
