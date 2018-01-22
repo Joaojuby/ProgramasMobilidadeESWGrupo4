@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -47,10 +48,18 @@ namespace ProgramasMobilidadeESW2017.Controllers
         }
 
         // GET: Candidaturas/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
+            if (id != null)
+            {
+                PopulateProgramaMobilidadeDropDownList(id);
+            } else
+            {
+                PopulateProgramaMobilidadeDropDownList();
+            }
+
             ViewData["EstadoCandidaturaID"] = new SelectList(_context.EstadosCandidaturas, "ID", "ID");
-            ViewData["ProgramaMobilidadeID"] = new SelectList(_context.ProgramasMobilidade, "ID", "Descricao");
+            // ViewData["ProgramaMobilidadeID"] = new SelectList(_context.ProgramasMobilidade, "ID", "Descricao");
             return View();
         }
 
@@ -59,18 +68,19 @@ namespace ProgramasMobilidadeESW2017.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ProgramaMobilidadeID,EstadoCandidaturaID,NomePessoaContacto,TelefonePessoaContacto,RelacaoComCandidato")] Candidatura candidatura)
+        [Authorize(Roles = "Utilizador")]
+        public async Task<IActionResult> Create([Bind("ProgramaMobilidadeID,EstadoCandidaturaID,NomePessoaContacto,TelefonePessoaContacto,RelacaoComCandidato")] Candidatura candidatura)
         {
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
                 _context.Add(candidatura);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            //}
-            //ViewData["EstadoCandidaturaID"] = new SelectList(_context.EstadosCandidaturas, "ID", "ID", candidatura.EstadoCandidaturaID);
-            //ViewData["ProgramaMobilidadeID"] = new SelectList(_context.ProgramasMobilidade, "ID", "Descricao", candidatura.ProgramaMobilidadeID);
-            //return View(candidatura);
         }
+            ViewData["EstadoCandidaturaID"] = new SelectList(_context.EstadosCandidaturas, "ID", "ID", candidatura.EstadoCandidaturaID);
+            ViewData["ProgramaMobilidadeID"] = new SelectList(_context.ProgramasMobilidade, "ID", "Descricao", candidatura.ProgramaMobilidadeID);
+            return View(candidatura);
+    }
 
         // GET: Candidaturas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -161,6 +171,13 @@ namespace ProgramasMobilidadeESW2017.Controllers
         private bool CandidaturaExists(int id)
         {
             return _context.Candidaturas.Any(e => e.ID == id);
+        }
+
+        private void PopulateProgramaMobilidadeDropDownList(object selectedProgramaMobilidade = null)
+        {
+            var programaMobilidade = from p in _context.ProgramasMobilidade
+                                     select p;
+            ViewBag.ProgramaMobilidadeID = new SelectList(programaMobilidade.AsNoTracking(), "ID", "Nome", selectedProgramaMobilidade);
         }
     }
 }
