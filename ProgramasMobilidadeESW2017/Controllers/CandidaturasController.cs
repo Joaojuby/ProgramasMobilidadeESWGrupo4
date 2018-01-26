@@ -63,7 +63,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
                 PopulateProgramaMobilidadeDropDownList();
             }
 
-            ViewData["EstadoCandidaturaID"] = new SelectList(_context.EstadosCandidaturas, "ID", "ID");
+            ViewData["EstadoCandidaturaID"] = new SelectList(_context.EstadosCandidaturas, "ID", "Designacao");
             // ViewData["ProgramaMobilidadeID"] = new SelectList(_context.ProgramasMobilidade, "ID", "Descricao");
             return View();
         }
@@ -85,7 +85,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "ProgramasMobilidade");
             }
-            ViewData["EstadoCandidaturaID"] = new SelectList(_context.EstadosCandidaturas, "ID", "ID", candidatura.EstadoCandidaturaID);
+            ViewData["EstadoCandidaturaID"] = new SelectList(_context.EstadosCandidaturas, "ID", "Designacao", candidatura.EstadoCandidaturaID);
             ViewData["ProgramaMobilidadeID"] = new SelectList(_context.ProgramasMobilidade, "ID", "Descricao", candidatura.ProgramaMobilidadeID);
             return View();
         }
