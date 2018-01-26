@@ -24,7 +24,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Candidaturas.Include(c => c.EstadoCandidatura).Include(c => c.ProgramaMobilidade);
+            var applicationDbContext = _context.Candidaturas.Include(c => c.EstadoCandidatura).Include(c => c.ProgramaMobilidade).Include(u => u.User);
             return View(await applicationDbContext.ToListAsync());
         }
 

@@ -4,23 +4,24 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista de Candidaturas</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.NomePessoaContacto)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TelefonePessoaContacto)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RelacaoComCandidato)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayName("Candidato")
+                @*@Html.DisplayNameFor(model => model.NomePessoaContacto)*@
+            </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.TelefonePessoaContacto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RelacaoComCandidato)
+        </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.EstadoCandidatura)
             </th>
@@ -31,17 +32,21 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+    {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NomePessoaContacto)
+                @Html.DisplayFor(modelItem => item.ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TelefonePessoaContacto)
+                @Html.DisplayFor(modelItem => item.User.PrimeiroNome) @Html.DisplayFor(modelItem => item.User.UltimoNome)
+            </td>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.TelefonePessoaContacto)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RelacaoComCandidato)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.EstadoCandidatura.Designacao)
             </td>
@@ -49,9 +54,7 @@
                 @Html.DisplayFor(modelItem => item.ProgramaMobilidade.Nome)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Cancel" asp-route-id="@item.ID">Cancelar</a>
+                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info" >Detalhes</a>
             </td>
         </tr>
 }

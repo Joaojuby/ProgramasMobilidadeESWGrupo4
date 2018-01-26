@@ -33,10 +33,8 @@
                     @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
         <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Apoio Social</a></li>
                     <li><a asp-area="" asp-controller="Instituicoes" asp-action="Index">Instituições</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Candidatura</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Pesquisar</a></li>
+                    <li><a asp-area="" asp-controller="Candidaturas" asp-action="Index">Candidaturas</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

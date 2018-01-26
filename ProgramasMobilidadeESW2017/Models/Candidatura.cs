@@ -9,8 +9,11 @@ namespace ProgramasMobilidadeESW2017.Models
 
     public class Candidatura
     {
+        [Display(Name="Nº")]
         public int ID { get; set; }
+
         public int ProgramaMobilidadeID { get; set; }
+
         public int EstadoCandidaturaID { get; set; }
 
         [Required]
@@ -36,5 +39,11 @@ namespace ProgramasMobilidadeESW2017.Models
 
         public ICollection<Entrevista> Entrevistas { get; set; }
         public ICollection<ObservacaoCandidatura> Observacoes { get; set; }
+
+        [Display(Name = "Nome")]
+        public string GetUserName()
+        {
+            return User.PrimeiroNome + " " + User.UltimoNome;
+        }
     }
 }
