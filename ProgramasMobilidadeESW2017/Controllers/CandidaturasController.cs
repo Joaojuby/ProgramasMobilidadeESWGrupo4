@@ -40,6 +40,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
             var candidatura = await _context.Candidaturas
                 .Include(c => c.EstadoCandidatura)
                 .Include(c => c.ProgramaMobilidade)
+                .Include(u => u.User)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (candidatura == null)
             {
@@ -77,13 +78,16 @@ namespace ProgramasMobilidadeESW2017.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userName = User.Identity.Name;
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == userName);
+                candidatura.User = user;
                 _context.Add(candidatura);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "ProgramasMobilidade");
             }
             ViewData["EstadoCandidaturaID"] = new SelectList(_context.EstadosCandidaturas, "ID", "ID", candidatura.EstadoCandidaturaID);
             ViewData["ProgramaMobilidadeID"] = new SelectList(_context.ProgramasMobilidade, "ID", "Descricao", candidatura.ProgramaMobilidadeID);
-            return View(candidatura);
+            return View();
         }
 
         // GET: Candidaturas/Edit/5
