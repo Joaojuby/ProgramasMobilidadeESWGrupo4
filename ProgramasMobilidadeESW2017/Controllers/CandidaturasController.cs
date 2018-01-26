@@ -158,6 +158,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
             var candidatura = await _context.Candidaturas
                 .Include(c => c.EstadoCandidatura)
                 .Include(c => c.ProgramaMobilidade)
+                .Include(u => u.User)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (candidatura == null)
             {

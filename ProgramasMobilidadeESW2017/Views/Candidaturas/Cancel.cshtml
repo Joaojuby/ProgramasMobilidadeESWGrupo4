@@ -4,50 +4,39 @@
     ViewData["Title"] = "Cancel";
 }
 
-<h2>Delete</h2>
+<h2>Cancelar candidatura</h2>
 
-<h3>Are you sure you want to cancel this?</h3>
+<h3>Tem a certeza que pretende cancelar a candidatura?</h3>
 <div>
-    <h4>Candidatura</h4>
+    <h4>Candidatura #@Html.DisplayFor(model => model.ID) </h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.NomePessoaContacto)
+            @Html.DisplayName("Candidato")
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.NomePessoaContacto)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TelefonePessoaContacto)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TelefonePessoaContacto)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.RelacaoComCandidato)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RelacaoComCandidato)
+            @Html.DisplayFor(model => model.User.PrimeiroNome) @Html.DisplayFor(model => model.User.UltimoNome)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.EstadoCandidatura)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.EstadoCandidatura.ID)
+            @Html.DisplayFor(model => model.EstadoCandidatura.Designacao)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ProgramaMobilidade)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ProgramaMobilidade.Descricao)
+            @Html.DisplayFor(model => model.ProgramaMobilidade.Nome)
         </dd>
     </dl>
     
     <form asp-action="Cancel">
         <input type="hidden" asp-for="ID" />
-        <span>Insert a reason below:</span>
-        @Html.TextArea("Nota", null, new { style = "color: black;" });
-        <input type="submit" value="Cancel" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        @*<h4>Inserir observação:</h4>*@
+        @Html.TextArea("Nota", null, new { style = "color: black; width: 100%; height: 5em", placeholder = "Escreva a razão de cancelamento" })
+        <br />
+        <input type="submit" value="Cancelar Candidatura" class="btn btn-danger" />
+        <a onclick="window.history.back()" class="btn btn-info">Voltar</a>
     </form>
 </div>

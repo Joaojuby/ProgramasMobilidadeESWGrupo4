@@ -18,6 +18,8 @@ namespace ProgramasMobilidadeESW2017.Models
         public string UltimoNome { get; set; }
 
         // Data Nascimento Utilizador
+        [DataType(DataType.Date)]
+        [Display(Name = "Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
 
         // Nacionalidade Utilizador
