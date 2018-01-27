@@ -25,7 +25,7 @@ namespace ProgramasMobilidadeESW2017.Models
         public long TelefonePessoaContacto { get; set; }
 
         [Required]
-        [Display(Name ="Relacao com o candidato")]
+        [Display(Name ="Relação com o candidato")]
         public string RelacaoComCandidato { get; set; }
 
 
