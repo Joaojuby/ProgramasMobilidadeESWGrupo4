@@ -47,7 +47,9 @@ namespace ProgramasMobilidadeESW2017.Controllers
                 return NotFound();
             }
 
-            return View(candidatura);
+            var viewModel = new AgendamentoEntrevista { Candidatura = candidatura };
+
+            return View(viewModel);
         }
 
         // GET: Candidaturas/Create
@@ -184,6 +186,26 @@ namespace ProgramasMobilidadeESW2017.Controllers
             // Adiciona observacao
             observacao.CandidaturaID = candidatura.ID;
             _context.Add(observacao);
+
+            _context.Candidaturas.Update(candidatura);
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        // POST: Candidaturas/Agendar/1
+        [HttpPost, ActionName("Agendar")]
+        [Authorize(Roles = "Administrador")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AgendarEntrevista(int id, [Bind ("DataEntrevista")] Entrevista entrevista)
+        {
+            var candidatura = await _context.Candidaturas.SingleOrDefaultAsync(m => m.ID == id);
+            var estadoAgendado = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Aguardar Resultados");
+            candidatura.EstadoCandidaturaID = estadoAgendado.ID;
+
+            // Adiciona entrevista
+            entrevista.CandidaturaID = candidatura.ID;
+            _context.Add(entrevista);
 
             _context.Candidaturas.Update(candidatura);
 

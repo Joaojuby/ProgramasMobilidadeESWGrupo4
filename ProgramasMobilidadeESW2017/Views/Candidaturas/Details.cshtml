@@ -1,4 +1,4 @@
-﻿@model ProgramasMobilidadeESW2017.Models.Candidatura
+﻿@model ProgramasMobilidadeESW2017.Models.AgendamentoEntrevista
 
 @{
     ViewData["Title"] = "Detalhes";
@@ -8,137 +8,167 @@
     <h3>Dados da Candidatura</h3>
     <br />
     <div class="row">
-        @Html.LabelFor(model => model.ProgramaMobilidade, new { @class = "col-sm-3 col-form-label" })
+        @Html.LabelFor(model => model.Candidatura.ProgramaMobilidade, new { @class = "col-sm-3 col-form-label" })
         <span class="col-sm-9">
-            @Html.DisplayTextFor(model => model.ProgramaMobilidade.Nome)
+            @Html.DisplayTextFor(model => model.Candidatura.ProgramaMobilidade.Nome)
         </span>
     </div>
     <div class="row">
-        @Html.LabelFor(model => model.EstadoCandidatura, new { @class = "col-sm-3 col-form-label" })
+        @Html.LabelFor(model => model.Candidatura.EstadoCandidatura, new { @class = "col-sm-3 col-form-label" })
         <span class="col-sm-9">
-            @Html.DisplayTextFor(model => model.EstadoCandidatura.Designacao)
+            @Html.DisplayTextFor(model => model.Candidatura.EstadoCandidatura.Designacao)
         </span>
     </div>
+    @if (Model.Candidatura.EstadoCandidaturaID == 1)
+    {
+        <div class="row" style="padding-left: 15px;">
+            <a onclick="showCalendario()" class="btn btn-sm btn-primary">Agendar Entrevista</a>
+            <div id="agendamento-block" style="display: none">
+                <div class="row" style="margin-top: 15px;">
+                    <div class="col-md-4">
+                        <form asp-controller="Candidaturas" asp-action="Agendar" asp-route-id="@Model.Candidatura.ID">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Entrevista.DataEntrevista" class="control-label"></label>
+                                <input asp-for="Entrevista.DataEntrevista" class="form-control" />
+                                <span asp-validation-for="Entrevista.DataEntrevista" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Agendar" class="btn btn-sm btn-success" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
     <br />
     <h4 style="text-decoration: underline">Candidato</h4>
     <div class="row">
-        @Html.LabelFor(model => model.User.PrimeiroNome, new { @class = "col-sm-3 col-form-label" })
+        @Html.LabelFor(model => model.Candidatura.User.PrimeiroNome, new { @class = "col-sm-3 col-form-label" })
         <span class="col-sm-9">
-            @Html.DisplayTextFor(model => model.User.PrimeiroNome)
+            @Html.DisplayTextFor(model => model.Candidatura.User.PrimeiroNome)
         </span>
     </div>
     <div class="row">
-        @Html.LabelFor(model => model.User.UltimoNome, new { @class = "col-sm-3 col-form-label" })
+        @Html.LabelFor(model => model.Candidatura.User.UltimoNome, new { @class = "col-sm-3 col-form-label" })
         <span class="col-sm-9">
-            @Html.DisplayTextFor(model => model.User.UltimoNome)
+            @Html.DisplayTextFor(model => model.Candidatura.User.UltimoNome)
         </span>
     </div>
     <div class="row">
-        @Html.LabelFor(model => model.User.Nacionalidade, new { @class = "col-sm-3 col-form-label" })
+        @Html.LabelFor(model => model.Candidatura.User.Nacionalidade, new { @class = "col-sm-3 col-form-label" })
         <span class="col-sm-9">
-            @Html.DisplayTextFor(model => model.User.Nacionalidade)
+            @Html.DisplayTextFor(model => model.Candidatura.User.Nacionalidade)
         </span>
     </div>
     <div class="row">
-        @Html.LabelFor(model => model.User.DataNascimento, new { @class = "col-sm-3 col-form-label" })
+        @Html.LabelFor(model => model.Candidatura.User.DataNascimento, new { @class = "col-sm-3 col-form-label" })
         <span class="col-sm-9">
-            @Html.DisplayFor(model => model.User.DataNascimento)
+            @Html.DisplayFor(model => model.Candidatura.User.DataNascimento)
         </span>
     </div>
     <div class="row">
-        @Html.LabelFor(model => model.User.Email, new { @class = "col-sm-3 col-form-label" })
+        @Html.LabelFor(model => model.Candidatura.User.Email, new { @class = "col-sm-3 col-form-label" })
         <span class="col-sm-9">
-            @Html.DisplayTextFor(model => model.User.Email)
+            @Html.DisplayTextFor(model => model.Candidatura.User.Email)
         </span>
     </div>
     <br />
     <h4 style="text-decoration: underline">Contactos</h4>
     <div class="row">
-        @Html.LabelFor(model => model.NomePessoaContacto, new { @class = "col-sm-3 col-form-label" })
+        @Html.LabelFor(model => model.Candidatura.NomePessoaContacto, new { @class = "col-sm-3 col-form-label" })
         <span class="col-sm-9">
-            @Html.DisplayTextFor(model => model.NomePessoaContacto)
+            @Html.DisplayTextFor(model => model.Candidatura.NomePessoaContacto)
         </span>
     </div>
     <div class="row">
-        @Html.LabelFor(model => model.TelefonePessoaContacto, new { @class = "col-sm-3 col-form-label" })
+        @Html.LabelFor(model => model.Candidatura.TelefonePessoaContacto, new { @class = "col-sm-3 col-form-label" })
         <span class="col-sm-9">
-            @Html.DisplayTextFor(model => model.TelefonePessoaContacto)
+            @Html.DisplayTextFor(model => model.Candidatura.TelefonePessoaContacto)
         </span>
     </div>
     <div class="row">
-        @Html.LabelFor(model => model.RelacaoComCandidato, new { @class = "col-sm-3 col-form-label" })
+        @Html.LabelFor(model => model.Candidatura.RelacaoComCandidato, new { @class = "col-sm-3 col-form-label" })
         <span class="col-sm-9">
-            @Html.DisplayTextFor(model => model.RelacaoComCandidato)
+            @Html.DisplayTextFor(model => model.Candidatura.RelacaoComCandidato)
         </span>
     </div>
 </div>
 
 @*<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NomePessoaContacto)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NomePessoaContacto)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TelefonePessoaContacto)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TelefonePessoaContacto)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.RelacaoComCandidato)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RelacaoComCandidato)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EstadoCandidatura)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EstadoCandidatura.Designacao)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProgramaMobilidade)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProgramaMobilidade.Nome)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.User.PrimeiroNome)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.User.PrimeiroNome)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.User.UltimoNome)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.User.UltimoNome)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.User.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Nacionalidade)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.User.Nacionalidade)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.User.DataNascimento)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.User.DataNascimento)
-        </dd>
-    </dl>
-</div>*@
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NomePessoaContacto)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NomePessoaContacto)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TelefonePessoaContacto)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TelefonePessoaContacto)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.RelacaoComCandidato)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.RelacaoComCandidato)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EstadoCandidatura)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EstadoCandidatura.Designacao)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProgramaMobilidade)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProgramaMobilidade.Nome)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.User.PrimeiroNome)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.User.PrimeiroNome)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.User.UltimoNome)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.User.UltimoNome)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.User.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.User.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.User.Nacionalidade)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.User.Nacionalidade)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.User.DataNascimento)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.User.DataNascimento)
+            </dd>
+        </dl>
+    </div>*@
 <br />
 <div>
     <a asp-action="Index" class="btn btn-primary">Voltar</a>
-    <a asp-action="Cancel" asp-route-id="@Model.ID" class="btn btn-warning">Cancelar Candidatura</a>
+    <a asp-action="Cancel" asp-route-id="@Model.Candidatura.ID" class="btn btn-warning">Cancelar Candidatura</a>
 </div>
+
+<script>
+
+    function showCalendario() {
+        $("#agendamento-block").toggle();
+    }
+</script>

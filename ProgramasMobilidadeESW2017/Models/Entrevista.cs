@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,9 @@ namespace ProgramasMobilidadeESW2017.Models
 
         public Candidatura Candidatura { get; set; }
 
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Data da Entrevista")]
         public DateTime DataEntrevista { get; set; }
     }
 }
