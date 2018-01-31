@@ -19,7 +19,7 @@
             @Html.DisplayTextFor(model => model.Candidatura.EstadoCandidatura.Designacao)
         </span>
     </div>
-    @if (Model.Candidatura.EstadoCandidaturaID == 1)
+    @if (Model.Candidatura.EstadoCandidatura.Designacao == "Em Análise")
     {
         <div class="row" style="padding-left: 15px;">
             <a onclick="showCalendario()" class="btn btn-sm btn-primary">Agendar Entrevista</a>
@@ -42,8 +42,23 @@
             </div>
         </div>
     }
+    @if (Model.Candidatura.EstadoCandidatura.Designacao == "Agendada")
+    {
+        <div class="row" style="padding-left: 15px;">
+            <a asp-action="ConcluirEntrevista" asp-route-id="@Model.Candidatura.ID" class="btn btn-sm btn-primary">Entrevista Concluída</a>
+        </div>
+    }
+    @if (Model.Candidatura.EstadoCandidatura.Designacao == "Aguardar Resultados")
+    {
+        <div class="row" style="padding-left: 15px;">
+            <a asp-action="AprovarCandidatura" asp-route-id="@Model.Candidatura.ID" class="btn btn-sm btn-success">Aprovar Candidatura</a>
+            <a asp-action="RejeitarCandidatura" asp-route-id="@Model.Candidatura.ID" class="btn btn-sm btn-danger">Rejeitar Candidatura</a>
+        </div>
+    }
     <br />
+
     <h4 style="text-decoration: underline">Candidato</h4>
+
     <div class="row">
         @Html.LabelFor(model => model.Candidatura.User.PrimeiroNome, new { @class = "col-sm-3 col-form-label" })
         <span class="col-sm-9">

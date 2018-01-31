@@ -84,7 +84,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
                 var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == userName);
                 candidatura.User = user;
 
-                var estadoCandidatura = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.ID == 1);
+                var estadoCandidatura = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Em Análise");
                 candidatura.EstadoCandidatura = estadoCandidatura;
 
                 _context.Add(candidatura);
@@ -200,7 +200,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
         public async Task<IActionResult> AgendarEntrevista(int id, [Bind ("DataEntrevista")] Entrevista entrevista)
         {
             var candidatura = await _context.Candidaturas.SingleOrDefaultAsync(m => m.ID == id);
-            var estadoAgendado = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Aguardar Resultados");
+            var estadoAgendado = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Agendada");
             candidatura.EstadoCandidaturaID = estadoAgendado.ID;
 
             // Adiciona entrevista
@@ -211,6 +211,48 @@ namespace ProgramasMobilidadeESW2017.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        [ActionName("ConcluirEntrevista")]
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> ConcluirEntrevista(int id)
+        {
+            var candidatura = await _context.Candidaturas.SingleOrDefaultAsync(m => m.ID == id);
+            var estadoAgendado = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Aguardar Resultados");
+            candidatura.EstadoCandidaturaID = estadoAgendado.ID;
+
+            _context.Candidaturas.Update(candidatura);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
+        [ActionName("AprovarCandidatura")]
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> AprovarCandidatura(int id)
+        {
+            var candidatura = await _context.Candidaturas.SingleOrDefaultAsync(m => m.ID == id);
+            var estadoAgendado = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Aprovada");
+            candidatura.EstadoCandidaturaID = estadoAgendado.ID;
+
+            _context.Candidaturas.Update(candidatura);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
+        [ActionName("RejeitarCandidatura")]
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> RejeitarCandidatura(int id)
+        {
+            var candidatura = await _context.Candidaturas.SingleOrDefaultAsync(m => m.ID == id);
+            var estadoAgendado = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Não Aprovada");
+            candidatura.EstadoCandidaturaID = estadoAgendado.ID;
+
+            _context.Candidaturas.Update(candidatura);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), new { id });
         }
 
         private bool CandidaturaExists(int id)

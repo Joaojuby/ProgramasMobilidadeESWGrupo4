@@ -100,6 +100,7 @@ namespace ProgramasMobilidadeESW2017.Data
                 {
                     new EstadoCandidatura{Designacao="Em Análise"},
                     new EstadoCandidatura{Designacao="Cancelada"},
+                    new EstadoCandidatura{Designacao="Agendada"},
                     new EstadoCandidatura{Designacao="Aguardar Resultados"},
                     new EstadoCandidatura{Designacao="Aprovada"},
                     new EstadoCandidatura{Designacao="Não Aprovada"},

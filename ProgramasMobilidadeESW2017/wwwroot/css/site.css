@@ -10,6 +10,10 @@ body {
     color: white;
 }
 
+.cell-center {
+    vertical-align: middle !important;
+}
+
 .sidebar{
     display: none;
 }

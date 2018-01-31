@@ -35,10 +35,10 @@
         @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="cell-center" >
                 @Html.DisplayFor(modelItem => item.ID)
             </td>
-            <td>
+            <td class="cell-center">
                 @Html.DisplayFor(modelItem => item.User.PrimeiroNome) @Html.DisplayFor(modelItem => item.User.UltimoNome)
             </td>
             @*<td>
@@ -47,10 +47,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.RelacaoComCandidato)
             </td>*@
-            <td>
+            <td class="cell-center">
                 @Html.DisplayFor(modelItem => item.EstadoCandidatura.Designacao)
             </td>
-            <td>
+            <td class="cell-center">
                 @Html.DisplayFor(modelItem => item.ProgramaMobilidade.Nome)
             </td>
             <td>
