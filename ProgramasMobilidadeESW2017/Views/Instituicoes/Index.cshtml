@@ -17,9 +17,9 @@
         <input type="submit" value="Search" />
     </p>
 }
-    <div class="container">
+<div class="container">
 
-        @foreach (var item in Model)
+    @foreach (var item in Model)
     {
         <div class="col-sm-4" style="display: flex; flex: 1; flex-direction: row; margin: 12px 0;">
             <div style="display: flex; flex: 1; align-items: center; justify-content: center;">
@@ -29,5 +29,5 @@
                 <p style="margin: 0;">@Html.DisplayFor(modelItem => item.Nome)</p>
             </a>
         </div>
-}
-    </div>
+    }
+</div>
