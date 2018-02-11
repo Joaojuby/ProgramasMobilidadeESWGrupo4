@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Moq;
-using ProgramasMobilidadeESW2017;
+using ProgramasMobilidadeESW2017.Controllers;
 using ProgramasMobilidadeESW2017.Data;
-using ProgramasMobilidadeESW2017.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +10,7 @@ using Xunit;
 
 namespace Testes
 {
-    public class InstituicoesControllerIntegrationTests
+    public class CandidaturasControllerIntegrationTests
     {
         [Fact]
         public async Task Index()
@@ -22,10 +20,10 @@ namespace Testes
             optionsBuilder.UseInMemoryDatabase("testdb");
             var _dbContext = new ApplicationDbContext(optionsBuilder.Options);
 
-            var controller = new InstituicoesController(_dbContext);
+            var controller = new CandidaturasController(_dbContext);
 
             // Act
-            var result = await controller.Index(null);
+            var result = await controller.Index();
 
             // Assert
             Assert.IsType<ViewResult>(result);
@@ -39,8 +37,8 @@ namespace Testes
             optionsBuilder.UseInMemoryDatabase("testdb");
             var _dbContext = new ApplicationDbContext(optionsBuilder.Options);
 
-            var controller = new InstituicoesController(_dbContext);
-            
+            var controller = new CandidaturasController(_dbContext);
+
             // Act
             var result = await controller.Details(null);
 
@@ -56,10 +54,11 @@ namespace Testes
             optionsBuilder.UseInMemoryDatabase("testdb");
             var _dbContext = new ApplicationDbContext(optionsBuilder.Options);
 
-            var controller = new InstituicoesController(_dbContext);
+            var controller = new CandidaturasController(_dbContext);
 
+            var id = 1;
             // Act
-            var result = controller.Create();
+            var result = controller.Create(id);
 
             // Assert
             Assert.IsType<ViewResult>(result);
@@ -73,7 +72,7 @@ namespace Testes
             optionsBuilder.UseInMemoryDatabase("testdb");
             var _dbContext = new ApplicationDbContext(optionsBuilder.Options);
 
-            var controller = new InstituicoesController(_dbContext);
+            var controller = new CandidaturasController(_dbContext);
 
             // Act
             var result = await controller.Edit(null);
@@ -83,17 +82,17 @@ namespace Testes
         }
 
         [Fact]
-        public async Task DeleteReturnsErrorIfNoID()
+        public async Task CancelReturnsErrorIfNoID()
         {
             // Arrange
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseInMemoryDatabase("testdb");
             var _dbContext = new ApplicationDbContext(optionsBuilder.Options);
 
-            var controller = new InstituicoesController(_dbContext);
+            var controller = new CandidaturasController(_dbContext);
 
             // Act
-            var result = await controller.Delete(null);
+            var result = await controller.Cancel(null);
 
             // Assert
             Assert.IsType<NotFoundResult>(result);

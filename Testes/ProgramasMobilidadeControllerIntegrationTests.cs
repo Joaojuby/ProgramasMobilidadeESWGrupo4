@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using ProgramasMobilidadeESW2017;
 using ProgramasMobilidadeESW2017.Data;
-using ProgramasMobilidadeESW2017.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +10,7 @@ using Xunit;
 
 namespace Testes
 {
-    public class InstituicoesControllerIntegrationTests
+    public class ProgramasMobilidadeControllerIntegrationTests
     {
         [Fact]
         public async Task Index()
@@ -22,7 +20,7 @@ namespace Testes
             optionsBuilder.UseInMemoryDatabase("testdb");
             var _dbContext = new ApplicationDbContext(optionsBuilder.Options);
 
-            var controller = new InstituicoesController(_dbContext);
+            var controller = new ProgramasMobilidadeController(_dbContext);
 
             // Act
             var result = await controller.Index(null);
@@ -39,8 +37,8 @@ namespace Testes
             optionsBuilder.UseInMemoryDatabase("testdb");
             var _dbContext = new ApplicationDbContext(optionsBuilder.Options);
 
-            var controller = new InstituicoesController(_dbContext);
-            
+            var controller = new ProgramasMobilidadeController(_dbContext);
+
             // Act
             var result = await controller.Details(null);
 
@@ -56,7 +54,7 @@ namespace Testes
             optionsBuilder.UseInMemoryDatabase("testdb");
             var _dbContext = new ApplicationDbContext(optionsBuilder.Options);
 
-            var controller = new InstituicoesController(_dbContext);
+            var controller = new ProgramasMobilidadeController(_dbContext);
 
             // Act
             var result = controller.Create();
@@ -73,7 +71,7 @@ namespace Testes
             optionsBuilder.UseInMemoryDatabase("testdb");
             var _dbContext = new ApplicationDbContext(optionsBuilder.Options);
 
-            var controller = new InstituicoesController(_dbContext);
+            var controller = new ProgramasMobilidadeController(_dbContext);
 
             // Act
             var result = await controller.Edit(null);
@@ -90,7 +88,7 @@ namespace Testes
             optionsBuilder.UseInMemoryDatabase("testdb");
             var _dbContext = new ApplicationDbContext(optionsBuilder.Options);
 
-            var controller = new InstituicoesController(_dbContext);
+            var controller = new ProgramasMobilidadeController(_dbContext);
 
             // Act
             var result = await controller.Delete(null);
