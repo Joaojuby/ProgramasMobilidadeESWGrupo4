@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<ProgramasMobilidadeESW2017.Models.Instituicao>
 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -7,9 +10,12 @@
 <h2>Instituições</h2>
 <p class="text-justify">Um programa de mobilidade apenas pode decorrer entre as instituições que tenham um protocolo de cooperação. Assim, abaixo encontram-se as diferentes instituições em que é possível realizar os diferentes programas de mobilidade.</p>
 
-<p style="margin-top: 1em; margin-bottom: 1em;">
-    <a class="btn btn-sm btn-success" asp-action="Create">Adicionar Instituição</a>
-</p>
+@if (SignInManager.IsSignedIn(User) && await UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result, "Administrador"))
+{
+    <p style="margin-top: 1em; margin-bottom: 1em;">
+        <a class="btn btn-sm btn-success" asp-action="Create">Adicionar Instituição</a>
+    </p>
+}
 
 @using (Html.BeginForm())
 {
