@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace ProgramasMobilidadeESW2017.Models
 
         public string Email { get; set; }
 
+        [Display(Name = "Nº Telefone")]
         public long PhoneNumber { get; set; }
 
         public string Website { get; set; }

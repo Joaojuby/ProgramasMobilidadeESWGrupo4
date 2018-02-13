@@ -34,6 +34,7 @@ namespace ProgramasMobilidadeESW2017.Models
         [Display(Name = "Data de Limite de Inscrição")]
         public DateTime DataLimiteInscricao { get; set; }
         
+        [Display(Name = "Tipo de Programa de Mobilidade")]
         public TipoProgramaMobilidade TipoProgramaMobilidade { get; set; }
 
         public ICollection<ProgramaMobilidadePais> ListaPaises { get; set; }
