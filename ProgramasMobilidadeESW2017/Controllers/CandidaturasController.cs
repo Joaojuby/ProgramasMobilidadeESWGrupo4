@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,21 +12,39 @@ using ProgramasMobilidadeESW2017.Models;
 
 namespace ProgramasMobilidadeESW2017.Controllers
 {
+    [Authorize]
     public class CandidaturasController : Controller
     {
         private readonly ApplicationDbContext _context;
+        //private readonly UserManager<ApplicationUser> _userManager;
+        //private readonly SignInManager<ApplicationUser> _signInManager;
 
+        //public CandidaturasController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         public CandidaturasController(ApplicationDbContext context)
         {
             _context = context;
+            //_userManager = userManager;
+            //_signInManager = signInManager;
         }
 
         // GET: Candidaturas
-        [Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Utilizador, Administrador")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Candidaturas.Include(c => c.EstadoCandidatura).Include(c => c.ProgramaMobilidade).Include(u => u.User);
-            return View(await applicationDbContext.ToListAsync());
+            bool isAdmin = User.IsInRole("Administrador");
+            
+            if (isAdmin)
+            {
+                var applicationDbContext = _context.Candidaturas.Include(c => c.EstadoCandidatura).Include(c => c.ProgramaMobilidade).Include(u => u.User);
+                return View(await applicationDbContext.ToListAsync());
+            } else
+            {
+                var userName = User.Identity.Name;
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == userName);
+
+                var applicationDbContext = _context.Candidaturas.Where(u => u.User == user).Include(c => c.EstadoCandidatura).Include(c => c.ProgramaMobilidade).Include(u => u.User);
+                return View(await applicationDbContext.ToListAsync());
+            }
         }
 
         // GET: Candidaturas/Details/5
@@ -177,7 +196,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
         [HttpPost, ActionName("Cancel")]
         [Authorize(Roles = "Administrador, Utilizador")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CancelConfirmed(int id, [Bind ("Nota")] ObservacaoCandidatura observacao)
+        public async Task<IActionResult> CancelConfirmed(int id, [Bind("Nota")] ObservacaoCandidatura observacao)
         {
             var candidatura = await _context.Candidaturas.SingleOrDefaultAsync(m => m.ID == id);
             var estadoCancelado = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Cancelada");
@@ -197,7 +216,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
         [HttpPost, ActionName("Agendar")]
         [Authorize(Roles = "Administrador")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AgendarEntrevista(int id, [Bind ("DataEntrevista")] Entrevista entrevista)
+        public async Task<IActionResult> AgendarEntrevista(int id, [Bind("DataEntrevista")] Entrevista entrevista)
         {
             var candidatura = await _context.Candidaturas.SingleOrDefaultAsync(m => m.ID == id);
             var estadoAgendado = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Agendada");
