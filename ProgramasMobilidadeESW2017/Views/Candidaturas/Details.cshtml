@@ -1,5 +1,8 @@
 ﻿@model ProgramasMobilidadeESW2017.Models.AgendamentoEntrevista
 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     ViewData["Title"] = "Detalhes";
 }
@@ -19,41 +22,45 @@
             @Html.DisplayTextFor(model => model.Candidatura.EstadoCandidatura.Designacao)
         </span>
     </div>
-    @if (Model.Candidatura.EstadoCandidatura.Designacao == "Em Análise")
+    @if (await UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result, "Administrador"))
     {
-        <div class="row" style="padding-left: 15px;">
-            <a onclick="showCalendario()" class="btn btn-sm btn-primary">Agendar Entrevista</a>
-            <div id="agendamento-block" style="display: none">
-                <div class="row" style="margin-top: 15px;">
-                    <div class="col-md-4">
-                        <form asp-controller="Candidaturas" asp-action="Agendar" asp-route-id="@Model.Candidatura.ID">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="form-group">
-                                <label asp-for="Entrevista.DataEntrevista" class="control-label"></label>
-                                <input asp-for="Entrevista.DataEntrevista" class="form-control" />
-                                <span asp-validation-for="Entrevista.DataEntrevista" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Agendar" class="btn btn-sm btn-success" />
-                            </div>
-                        </form>
+        @if (Model.Candidatura.EstadoCandidatura.Designacao == "Em Análise")
+        {
+            <div class="row" style="padding-left: 15px;">
+                <a onclick="showCalendario()" class="btn btn-sm btn-primary">Agendar Entrevista</a>
+                <div id="agendamento-block" style="display: none">
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-4">
+                            <form asp-controller="Candidaturas" asp-action="Agendar" asp-route-id="@Model.Candidatura.ID">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="Entrevista.DataEntrevista" class="control-label"></label>
+                                    <input asp-for="Entrevista.DataEntrevista" class="form-control" />
+                                    <span asp-validation-for="Entrevista.DataEntrevista" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Agendar" class="btn btn-sm btn-success" />
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
-    @if (Model.Candidatura.EstadoCandidatura.Designacao == "Agendada")
-    {
-        <div class="row" style="padding-left: 15px;">
-            <a asp-action="ConcluirEntrevista" asp-route-id="@Model.Candidatura.ID" class="btn btn-sm btn-primary">Entrevista Concluída</a>
-        </div>
-    }
-    @if (Model.Candidatura.EstadoCandidatura.Designacao == "Aguardar Resultados")
-    {
-        <div class="row" style="padding-left: 15px;">
-            <a asp-action="AprovarCandidatura" asp-route-id="@Model.Candidatura.ID" class="btn btn-sm btn-success">Aprovar Candidatura</a>
-            <a asp-action="RejeitarCandidatura" asp-route-id="@Model.Candidatura.ID" class="btn btn-sm btn-danger">Rejeitar Candidatura</a>
-        </div>
+        }
+
+        @if (Model.Candidatura.EstadoCandidatura.Designacao == "Agendada")
+        {
+            <div class="row" style="padding-left: 15px;">
+                <a asp-action="ConcluirEntrevista" asp-route-id="@Model.Candidatura.ID" class="btn btn-sm btn-primary">Entrevista Concluída</a>
+            </div>
+        }
+        @if (Model.Candidatura.EstadoCandidatura.Designacao == "Aguardar Resultados")
+        {
+            <div class="row" style="padding-left: 15px;">
+                <a asp-action="AprovarCandidatura" asp-route-id="@Model.Candidatura.ID" class="btn btn-sm btn-success">Aprovar Candidatura</a>
+                <a asp-action="RejeitarCandidatura" asp-route-id="@Model.Candidatura.ID" class="btn btn-sm btn-danger">Rejeitar Candidatura</a>
+            </div>
+        }
     }
     <br />
     <h4 style="text-decoration: underline;">Candidato</h4>
