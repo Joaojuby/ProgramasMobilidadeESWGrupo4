@@ -44,6 +44,8 @@
     {
         <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-sm btn-warning">Editar</a>
     }
-
-    <a asp-controller="Candidaturas" asp-action="Create" asp-route-id="@Model.ID" class="btn btn-sm btn-primary">Candidatar</a>
+    @if (SignInManager.IsSignedIn(User) && await UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result, "Utilizador"))
+    {
+        <a asp-controller="Candidaturas" asp-action="Create" asp-route-id="@Model.ID" class="btn btn-sm btn-primary">Candidatar</a>
+    }
 </div>
