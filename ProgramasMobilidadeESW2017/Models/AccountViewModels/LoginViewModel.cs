@@ -16,7 +16,7 @@ namespace ProgramasMobilidadeESW2017.Models.AccountViewModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Guardar os dados no browser?")]
         public bool RememberMe { get; set; }
     }
 }
