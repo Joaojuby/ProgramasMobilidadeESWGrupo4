@@ -60,7 +60,8 @@ namespace ProgramasMobilidadeESW2017.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                User = user,
             };
 
             return View(model);
