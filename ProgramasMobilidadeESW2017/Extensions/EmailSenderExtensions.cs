@@ -11,8 +11,8 @@ namespace ProgramasMobilidadeESW2017.Services
     {
         public static Task SendEmailConfirmationAsync(this IEmailSender emailSender, string email, string link)
         {
-            return emailSender.SendEmailAsync(email, "Confirm your email",
-                $"Please confirm your account by clicking this link: <a href='{HtmlEncoder.Default.Encode(link)}'>link</a>");
+            return emailSender.SendEmailAsync(email, "Confirmar Conta",
+                $"Por favor confirme a sua conta no seguinte <a href='{HtmlEncoder.Default.Encode(link)}'>endereço</a>");
         }
     }
 }
