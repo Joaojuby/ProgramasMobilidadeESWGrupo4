@@ -60,6 +60,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
                 .Include(c => c.EstadoCandidatura)
                 .Include(c => c.ProgramaMobilidade)
                 .Include(u => u.User)
+                .Include(e => e.Entrevistas)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (candidatura == null)
             {

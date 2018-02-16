@@ -21,7 +21,16 @@
         <span class="col-sm-9">
             @Html.DisplayTextFor(model => model.Candidatura.EstadoCandidatura.Designacao)
         </span>
+    </div>    
+    @if (Model.Candidatura.Entrevistas.Any())
+    {
+    <div class="row">
+        @Html.LabelFor(model => model.Candidatura.Entrevistas.Last().DataEntrevista, new { @class = "col-sm-3 col-form-label" })
+        <span class="col-sm-9">
+            @Html.DisplayFor(model => model.Candidatura.Entrevistas.Last().DataEntrevista)
+        </span>
     </div>
+    }
     @if (await UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result, "Administrador"))
     {
         @if (Model.Candidatura.EstadoCandidatura.Designacao == "Em Análise")
