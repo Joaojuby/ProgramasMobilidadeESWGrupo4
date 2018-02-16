@@ -120,7 +120,10 @@
 <br />
 <div>
     <a asp-action="Index" class="btn btn-sm btn-success">Voltar</a>
-    <a asp-action="Cancel" asp-route-id="@Model.Candidatura.ID" class="btn btn-sm btn-danger">Cancelar Candidatura</a>
+    @if (Model.Candidatura.EstadoCandidatura.Designacao != "Cancelada" )
+    {
+        <a asp-action="Cancel" asp-route-id="@Model.Candidatura.ID" class="btn btn-sm btn-danger">Cancelar Candidatura</a>
+    }
 </div>
 
 <script>
