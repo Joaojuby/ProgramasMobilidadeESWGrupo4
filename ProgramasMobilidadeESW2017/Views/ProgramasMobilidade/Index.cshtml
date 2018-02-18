@@ -4,7 +4,7 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Programas de Mobilidade";
 }
 
 <h2>Programas Mobilidade</h2>
@@ -28,7 +28,7 @@
 
 @foreach (var item in Model)
 {
-    <div class="col-sm-4">
+    <div class="col-sm-4" style="padding-bottom: 20px;">
         <a asp-action="Details" asp-route-id="@item.ID" style="display: flex; color: black; text-decoration: none; align-items:center; justify-content:space-between; flex-direction: column; flex: 1; height: 150px; margin: 12px 0;">
             <p style=" font-size:1.3em; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-weight: bold">
                 @Html.DisplayFor(modelItem => item.Nome)

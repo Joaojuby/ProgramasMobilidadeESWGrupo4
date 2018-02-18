@@ -173,7 +173,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
 
             await _signInManager.SignInAsync(user, isPersistent: false);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            StatusMessage = "Password Alterada com Sucesso!";
 
             return RedirectToAction(nameof(ChangePassword));
         }

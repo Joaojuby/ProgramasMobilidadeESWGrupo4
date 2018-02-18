@@ -1,12 +1,12 @@
 ﻿@model ProgramasMobilidadeESW2017.Models.ProgramaMobilidade
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Criar Programa de Mobilidade";
 }
 
-<h2>Create</h2>
+<h2>Criar</h2>
 
-<h4>ProgramaMobilidade</h4>
+<h4>Programa Mobilidade</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -48,16 +48,20 @@
                 <input asp-for="DataLimiteInscricao" class="form-control" />
                 <span asp-validation-for="DataLimiteInscricao" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div>
+                <a asp-action="Index" class="btn btn-sm btn-success">Voltar</a>
+                <input type="submit" value="Submeter" class="btn btn-sm btn-primary" />
             </div>
+            @*<div class="form-group">
+                <input type="submit" value="Submeter" class="btn btn-default" />
+            </div>*@
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@*<div>
+    <a asp-action="Index" class="btn btn-success">Voltar</a>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
