@@ -29,7 +29,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
         }
 
         // GET: Candidaturas/Details/5
-        [Authorize(Roles = "Utilizador, Administrador")]
+        [Authorize(Roles = "Utilizador,Administrador")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
