@@ -86,7 +86,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
 
             var userName = User.Identity.Name;
             var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == userName);
-            if ((candidatura.User.Id != user.Id) || !User.IsInRole("Administrador"))
+            if (candidatura.User.Id != user.Id && !User.IsInRole("Administrador"))
             {
                 return NotFound();
             }
