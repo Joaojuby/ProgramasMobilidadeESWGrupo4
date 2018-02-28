@@ -65,7 +65,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
         /// </summary>
         /// <param name="id">ID da candidatura</param>
         /// <returns>Uma página com os detalhes da candidatura</returns>
-        [Authorize(Roles = "Utilizador,Administrador")]
+        [Authorize(Roles = "Utilizador, Administrador")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -86,7 +86,7 @@ namespace ProgramasMobilidadeESW2017.Controllers
 
             var userName = User.Identity.Name;
             var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == userName);
-            if (candidatura.User.Id != user.Id)
+            if ((candidatura.User.Id != user.Id) || !User.IsInRole("Administrador"))
             {
                 return NotFound();
             }
