@@ -14,7 +14,7 @@ namespace ProgramasMobilidadeESW2017.Models
         public Candidatura Candidatura { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Display(Name = "Data da Entrevista")]
         public DateTime DataEntrevista { get; set; }
     }

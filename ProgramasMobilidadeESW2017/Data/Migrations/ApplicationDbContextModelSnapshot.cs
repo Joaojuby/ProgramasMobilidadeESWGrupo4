@@ -298,6 +298,8 @@ namespace ProgramasMobilidadeESW2017.Data.Migrations
 
                     b.Property<string>("Nome");
 
+                    b.Property<string>("URLBandeira");
+
                     b.HasKey("ID");
 
                     b.ToTable("Paises");
@@ -350,6 +352,8 @@ namespace ProgramasMobilidadeESW2017.Data.Migrations
                     b.Property<string>("Descricao");
 
                     b.Property<string>("Designacao");
+
+                    b.Property<string>("URLImagem");
 
                     b.HasKey("ID");
 

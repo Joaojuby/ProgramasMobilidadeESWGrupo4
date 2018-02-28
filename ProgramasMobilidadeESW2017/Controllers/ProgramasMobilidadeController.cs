@@ -13,14 +13,26 @@ namespace ProgramasMobilidadeESW2017
 {
     public class ProgramasMobilidadeController : Controller
     {
+        /// <summary>
+        /// Contexto da base de dados
+        /// </summary>
+        /// <remarks></remarks>
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Inicializa uma nova instância de <see cref="ProgramasMobilidadeESW2017.ProgramasMobilidadeController" />. 
+        /// </summary>
+        /// <param name="context">O contexto da base da dados</param>
         public ProgramasMobilidadeController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: ProgramaMobilidades
+        /// <summary>
+        /// Devolve uma página com programas de mobilidade
+        /// </summary>
+        /// <param name="searchString">string a pesquisar no nome dos programas mobilidade</param>
         public async Task<IActionResult> Index(string searchString)
         {
             var programasMobilidade = _context.ProgramasMobilidade.Include(p => p.TipoProgramaMobilidade);
@@ -35,6 +47,10 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: ProgramaMobilidades/Details/5
+        /// <summary>
+        /// Devolve uma página com os detalhes do programa de mobilidade
+        /// </summary>
+        /// <param name="id">ID do Programa Mobilidade</param>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,6 +71,9 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: ProgramaMobilidades/Create
+        /// <summary>
+        /// Devolve uma página para adicionar um programa de mobilidade
+        /// </summary>
         [Authorize(Roles = "Administrador")]
         public IActionResult Create()
         {
@@ -66,6 +85,10 @@ namespace ProgramasMobilidadeESW2017
         // POST: ProgramaMobilidades/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Adiciona um programa de mobilidade à base de dados.
+        /// </summary>
+        /// <param name="programaMobilidade">programa de mobilidade a adicionar</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -83,6 +106,10 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: ProgramaMobilidades/Edit/5
+        /// <summary>
+        /// Devolve uma página para editar um programa de mobilidade
+        /// </summary>
+        /// <param name="id">ID do programa de mobilidade</param>
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -104,6 +131,11 @@ namespace ProgramasMobilidadeESW2017
         // POST: ProgramaMobilidades/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Guarda os detalhes do programa de mobilidade alterado
+        /// </summary>
+        /// <param name="id">ID do programa mobilidade</param>
+        /// <param name="programaMobilidade">Dados do programa de mobilidade a guardar</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -140,6 +172,12 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: ProgramaMobilidades/Delete/5
+        /// <summary>
+        /// Devolve uma página para eliminar um programa de mobilidade após confirmação
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -161,6 +199,10 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // POST: ProgramaMobilidades/Delete/5
+        /// <summary>
+        /// Remove o programa de mobilidade da base de dados
+        /// </summary>
+        /// <param name="id">ID do programa de mobilidade</param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -177,6 +219,10 @@ namespace ProgramasMobilidadeESW2017
             return _context.ProgramasMobilidade.Any(e => e.ID == id);
         }
 
+        /// <summary>
+        /// Coloca um selector com os tipos de programa na ViewBag
+        /// </summary>
+        /// <param name="selectedTipoPrograma">Optional. O valor por defeito é null.</param>
         private void PopulateTipoProgramaDropDownList(object selectedTipoPrograma = null)
         {
             var tipoProgramaMobilidade = from t in _context.TiposProgramaMobilidade

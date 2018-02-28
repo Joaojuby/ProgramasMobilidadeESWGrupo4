@@ -12,5 +12,7 @@ namespace ProgramasMobilidadeESW2017.Models
         public string Designacao { get; set; }
 
         public string Descricao { get; set; }
+
+        public string URLImagem { get; set; }
     }
 }

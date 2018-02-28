@@ -16,6 +16,8 @@ namespace ProgramasMobilidadeESW2017.Models
 
         public int CodigoPais { get; set; }
 
+        public string URLBandeira { get; set; }
+
         public ICollection<Instituicao> Instituicoes { get; set; }
 
         public ICollection<ProgramaMobilidadePais> ListaProgramas { get; set; }

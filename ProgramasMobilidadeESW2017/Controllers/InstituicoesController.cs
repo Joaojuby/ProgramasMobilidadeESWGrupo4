@@ -14,14 +14,26 @@ namespace ProgramasMobilidadeESW2017
 {
     public class InstituicoesController : Controller
     {
+        /// <summary>
+        /// Contexto da base de dados
+        /// </summary>
+        /// <remarks></remarks>
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Inicializa uma nova instância de <see cref="ProgramasMobilidadeESW2017.InstituicoesController" />. 
+        /// </summary>
+        /// <param name="context">O contexto da base da dados</param>
         public InstituicoesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: Instituicoes
+        /// <summary>
+        /// Devolve uma página com instituições
+        /// </summary>
+        /// <param name="searchString">string a pesquisar no nome das instituições e dos países das instituições</param>
         public async Task<IActionResult> Index(string searchString)
         {
             var instituicoes = _context.Instituicoes.Include(i => i.Pais);
@@ -37,6 +49,10 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: Instituicoes/Details/5
+        /// <summary>
+        /// Devolve uma página com os detalhes da instituição
+        /// </summary>
+        /// <param name="id">ID da Instituição</param>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -57,6 +73,9 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: Instituicoes/Create
+        /// <summary>
+        /// Devolve uma página para adicionar uma instituição
+        /// </summary>
         [Authorize(Roles = "Administrador")]
         public IActionResult Create()
         {
@@ -68,6 +87,10 @@ namespace ProgramasMobilidadeESW2017
         // POST: Instituicoes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Adiciona uma instituição à base de dados
+        /// </summary>
+        /// <param name="instituicao">Instituição a adicionar</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -85,6 +108,10 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: Instituicoes/Edit/5
+        /// <summary>
+        /// Devolve uma página para editar uma instituição
+        /// </summary>
+        /// <param name="id">ID da instituição</param>
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -106,6 +133,11 @@ namespace ProgramasMobilidadeESW2017
         // POST: Instituicoes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Guarda os dados da instituição editada
+        /// </summary>
+        /// <param name="id">ID da instituição</param>
+        /// <param name="instituicao">Dados da instituição a guardar</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -142,6 +174,10 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // GET: Instituicoes/Delete/5
+        /// <summary>
+        /// Devolve uma página para eliminar uma instituição após confirmação
+        /// </summary>
+        /// <param name="id">ID da instituição</param>
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -163,6 +199,10 @@ namespace ProgramasMobilidadeESW2017
         }
 
         // POST: Instituicoes/Delete/5
+        /// <summary>
+        /// Remove a instituição da base de dados
+        /// </summary>
+        /// <param name="id">ID da Instituição</param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -179,6 +219,10 @@ namespace ProgramasMobilidadeESW2017
             return _context.Instituicoes.Any(e => e.ID == id);
         }
 
+        /// <summary>
+        /// Coloca um selector com os paises na ViewBag
+        /// </summary>
+        /// <param name="selectedPais">Optional. O valor por defeito é null.</param>
         private void PopulateInstituicoesDropDownList(object selectedPais = null)
         {
             var paisQuery = from p in _context.Paises

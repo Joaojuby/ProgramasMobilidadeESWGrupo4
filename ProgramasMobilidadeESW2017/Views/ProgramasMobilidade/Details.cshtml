@@ -1,55 +1,51 @@
 ﻿@model ProgramasMobilidadeESW2017.Models.ProgramaMobilidade
 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes Programa de Mobilidade";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>ProgramaMobilidade</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Duracao)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Duracao)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataInicioInscricao)
-        </dt>
-        <dd>
+    <h3>@Html.DisplayTextFor(model => model.Nome)</h3>
+    <h4>@Html.DisplayTextFor(model => model.Descricao)</h4>
+    <br />
+    <div class="row">
+        @Html.LabelFor(model => model.Duracao, new { @class = "col-sm-3 col-form-label" })
+        <span class="col-sm-9">
+            @Html.DisplayTextFor(model => model.Duracao)
+        </span>
+    </div>
+    <div class="row">
+        @Html.LabelFor(model => model.DataInicioInscricao, new { @class = "col-sm-3 col-form-label" })
+        <span class="col-sm-9">
             @Html.DisplayFor(model => model.DataInicioInscricao)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataLimiteInscricao)
-        </dt>
-        <dd>
+        </span>
+    </div>
+    <div class="row">
+        @Html.LabelFor(model => model.DataLimiteInscricao, new { @class = "col-sm-3 col-form-label" })
+        <span class="col-sm-9">
             @Html.DisplayFor(model => model.DataLimiteInscricao)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoProgramaMobilidade)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TipoProgramaMobilidade.Designacao)
-        </dd>
-    </dl>
+        </span>
+    </div>
+    <div class="row">
+        @Html.LabelFor(model => model.TipoProgramaMobilidade, new { @class = "col-sm-3 col-form-label" })
+        <span class="col-sm-9">
+            @Html.DisplayTextFor(model => model.TipoProgramaMobilidade.Designacao)
+        </span>
+    </div>
 </div>
+
+<br />
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-controller="Candidaturas" asp-action="Create" asp-route-id="@Model.ID">Candidatar</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-sm btn-success">Voltar</a>
+    @if (SignInManager.IsSignedIn(User) && await UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result, "Administrador"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-sm btn-warning">Editar</a>
+    }
+    @if (SignInManager.IsSignedIn(User) && await UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result, "Utilizador"))
+    {
+        <a asp-controller="Candidaturas" asp-action="Create" asp-route-id="@Model.ID" class="btn btn-sm btn-primary">Candidatar</a>
+    }
 </div>

@@ -1,13 +1,13 @@
 ﻿@model ProgramasMobilidadeESW2017.Models.ProgramaMobilidade
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Programa de Mobilidade";
 }
 
-<h2>Edit</h2>
-
-<h4>ProgramaMobilidade</h4>
+<br />
+<h4>Realize as alterações ao programa de mobilidade no formulário abaixo</h4>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -50,15 +50,13 @@
                 <input asp-for="DataLimiteInscricao" class="form-control" />
                 <span asp-validation-for="DataLimiteInscricao" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <a asp-action="Index" class="btn btn-sm btn-success">Voltar</a>
+                <input type="submit" value="Gravar Alterações" class="btn btn-sm btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

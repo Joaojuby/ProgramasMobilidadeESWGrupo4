@@ -1,10 +1,10 @@
 ﻿@model ProgramasMobilidadeESW2017.Models.Instituicao
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Criar Instituição";
 }
 
-<h2>Create</h2>
+<h2>Criar</h2>
 
 <h4>Instituicao</h4>
 <hr />
@@ -38,26 +38,30 @@
                 <span asp-validation-for="Website" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="PaisID" class="control-label"></label>
-                <select asp-for="PaisID" class ="form-control" asp-items="ViewBag.PaisID"></select>
-            </div>*@
+            <label asp-for="PaisID" class="control-label"></label>
+            <select asp-for="PaisID" class ="form-control" asp-items="ViewBag.PaisID"></select>
+        </div>*@
             <div class="form-group">
-                <label asp-for="Pais" class="control-label"></label>    
+                <label asp-for="Pais" class="control-label"></label>
                 <select asp-for="PaisID" class="form-control" asp-items="ViewBag.PaisID">
                     <option value="">-- Selecione o País --</option>
                 </select>
                 <span asp-validation-for="PaisID" class="text-danger" />
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div>
+                <a asp-action="Index" class="btn btn-sm btn-success">Voltar</a>
+                <input type="submit" value="Submeter" class="btn btn-sm btn-primary" />
             </div>
+            @*<div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>*@
         </form>
     </div>
 </div>
 
-<div>
+@*<div>
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

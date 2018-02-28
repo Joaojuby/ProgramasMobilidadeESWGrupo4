@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,24 +12,59 @@ using ProgramasMobilidadeESW2017.Models;
 
 namespace ProgramasMobilidadeESW2017.Controllers
 {
+    [Authorize]
     public class CandidaturasController : Controller
     {
+        /// <summary>
+        /// Contexto da base de dados
+        /// </summary>
         private readonly ApplicationDbContext _context;
+        //private readonly UserManager<ApplicationUser> _userManager;
+        //private readonly SignInManager<ApplicationUser> _signInManager;
 
+        //public CandidaturasController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        /// <summary>
+        /// Inicializa uma nova instância de <see cref="ProgramasMobilidadeESW2017.Controllers.CandidaturasController" />. 
+        /// </summary>
+        /// <param name="context">O contexto da base da dados</param>
         public CandidaturasController(ApplicationDbContext context)
         {
             _context = context;
+            //_userManager = userManager;
+            //_signInManager = signInManager;
         }
 
         // GET: Candidaturas
-        [Authorize(Roles = "Administrador")]
+        /// <summary>
+        /// Devolve uma página com candidaturas
+        /// </summary>
+        /// <remarks>Caso o utilizador seja um utilizador apenas consegue ver as suas proprias candidaturas</remarks>
+        [Authorize(Roles = "Utilizador, Administrador")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Candidaturas.Include(c => c.EstadoCandidatura).Include(c => c.ProgramaMobilidade).Include(u => u.User);
-            return View(await applicationDbContext.ToListAsync());
+            bool isAdmin = User.IsInRole("Administrador");
+
+            if (isAdmin)
+            {
+                var applicationDbContext = _context.Candidaturas.Include(c => c.EstadoCandidatura).Include(c => c.ProgramaMobilidade).Include(u => u.User);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else
+            {
+                var userName = User.Identity.Name;
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == userName);
+
+                var applicationDbContext = _context.Candidaturas.Where(u => u.User == user).Include(c => c.EstadoCandidatura).Include(c => c.ProgramaMobilidade).Include(u => u.User);
+                return View(await applicationDbContext.ToListAsync());
+            }
         }
 
         // GET: Candidaturas/Details/5
+        /// <summary>
+        /// Devolve uma página com os detalhes da candidatura
+        /// </summary>
+        /// <param name="id">ID da candidatura</param>
+        /// <returns>Uma página com os detalhes da candidatura</returns>
         [Authorize(Roles = "Utilizador, Administrador")]
         public async Task<IActionResult> Details(int? id)
         {
@@ -41,8 +77,16 @@ namespace ProgramasMobilidadeESW2017.Controllers
                 .Include(c => c.EstadoCandidatura)
                 .Include(c => c.ProgramaMobilidade)
                 .Include(u => u.User)
+                .Include(e => e.Entrevistas)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (candidatura == null)
+            {
+                return NotFound();
+            }
+
+            var userName = User.Identity.Name;
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == userName);
+            if (candidatura.User.Id != user.Id)
             {
                 return NotFound();
             }
@@ -53,6 +97,10 @@ namespace ProgramasMobilidadeESW2017.Controllers
         }
 
         // GET: Candidaturas/Create
+        /// <summary>
+        /// Devolve uma página para criar uma candidatura
+        /// </summary>
+        /// <param name="id">ID do programa de mobilidade selecionado</param>
         [Authorize(Roles = "Utilizador")]
         public IActionResult Create(int? id)
         {
@@ -73,6 +121,10 @@ namespace ProgramasMobilidadeESW2017.Controllers
         // POST: Candidaturas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Cria uma nova candidatura
+        /// </summary>
+        /// <param name="candidatura">A candidatura a adicionar</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Utilizador")]
@@ -152,6 +204,10 @@ namespace ProgramasMobilidadeESW2017.Controllers
         }
 
         // GET: Candidaturas/Delete/5
+        /// <summary>
+        /// Devolve uma página para cancelar uma candidatura
+        /// </summary>
+        /// <param name="id">ID da candidatura</param>
         [Authorize(Roles = "Administrador, Utilizador")]
         public async Task<IActionResult> Cancel(int? id)
         {
@@ -174,10 +230,15 @@ namespace ProgramasMobilidadeESW2017.Controllers
         }
 
         // POST: Candidaturas/Delete/5
+        /// <summary>
+        /// Altera o estado da candidatura para cancelado
+        /// </summary>
+        /// <param name="id">ID da candidatura</param>
+        /// <param name="observacao">Observação a anexar à candidatura</param>
         [HttpPost, ActionName("Cancel")]
         [Authorize(Roles = "Administrador, Utilizador")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CancelConfirmed(int id, [Bind ("Nota")] ObservacaoCandidatura observacao)
+        public async Task<IActionResult> CancelConfirmed(int id, [Bind("Nota")] ObservacaoCandidatura observacao)
         {
             var candidatura = await _context.Candidaturas.SingleOrDefaultAsync(m => m.ID == id);
             var estadoCancelado = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Cancelada");
@@ -194,10 +255,15 @@ namespace ProgramasMobilidadeESW2017.Controllers
         }
 
         // POST: Candidaturas/Agendar/1
+        /// <summary>
+        /// Agenda uma entrevista para uma candidatura
+        /// </summary>
+        /// <param name="id">ID da candidatura</param>
+        /// <param name="entrevista">Entrevista a anexar à candidatura</param>
         [HttpPost, ActionName("Agendar")]
         [Authorize(Roles = "Administrador")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AgendarEntrevista(int id, [Bind ("DataEntrevista")] Entrevista entrevista)
+        public async Task<IActionResult> AgendarEntrevista(int id, [Bind("DataEntrevista")] Entrevista entrevista)
         {
             var candidatura = await _context.Candidaturas.SingleOrDefaultAsync(m => m.ID == id);
             var estadoAgendado = await _context.EstadosCandidaturas.SingleOrDefaultAsync(e => e.Designacao == "Agendada");
@@ -213,6 +279,10 @@ namespace ProgramasMobilidadeESW2017.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Altera o estado da candidatura para Aguardar Resultados
+        /// </summary>
+        /// <param name="id">ID da candidatura</param>
         [ActionName("ConcluirEntrevista")]
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> ConcluirEntrevista(int id)
@@ -227,6 +297,10 @@ namespace ProgramasMobilidadeESW2017.Controllers
             return RedirectToAction(nameof(Details), new { id });
         }
 
+        /// <summary>
+        /// Altera o estado da candidatura para Aprovada
+        /// </summary>
+        /// <param name="id">ID da candidatura</param>
         [ActionName("AprovarCandidatura")]
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> AprovarCandidatura(int id)
@@ -241,6 +315,10 @@ namespace ProgramasMobilidadeESW2017.Controllers
             return RedirectToAction(nameof(Details), new { id });
         }
 
+        /// <summary>
+        /// Altera o estado da candidatura para Não Aprovada
+        /// </summary>
+        /// <param name="id">ID da candidatura</param>
         [ActionName("RejeitarCandidatura")]
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> RejeitarCandidatura(int id)
@@ -260,6 +338,10 @@ namespace ProgramasMobilidadeESW2017.Controllers
             return _context.Candidaturas.Any(e => e.ID == id);
         }
 
+        /// <summary>
+        /// Coloca um selector com os programas de mobilidade na ViewBag
+        /// </summary>
+        /// <param name="selectedProgramaMobilidade">Optional. O valor por defeito é null.</param>
         private void PopulateProgramaMobilidadeDropDownList(object selectedProgramaMobilidade = null)
         {
             var programaMobilidade = from p in _context.ProgramasMobilidade
